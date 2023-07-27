@@ -22,6 +22,9 @@ const { title } = Astro.props;
 			<a href="/login">Login</a>
 			<a href="/add">Add</a>
 			<a href="/dashboard">Dashboard</a>
+			<form style="margin-left: auto; margin-right: 1ch;" action="/api/auth/signout">
+				<button type="submit">Sign out</button>
+			</form>
 		</nav>
 		<slot />
 	</body>
