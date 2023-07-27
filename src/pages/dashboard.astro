@@ -3,6 +3,7 @@
 import { app } from "../firebase/server";
 import { getAuth } from "firebase-admin/auth";
 import Layout from "../layouts/Layout.astro";
+import { getFirestore } from "firebase-admin/firestore";
 
 const auth = getAuth(app);
 
@@ -20,6 +21,21 @@ const user = await auth.getUser(decodedCookie.uid);
 if (!user) {
   return Astro.redirect("/signin");
 }
+
+interface Friend {
+  id: string;
+  name: string;
+  age: number;
+  isBestFriend: boolean;
+}
+
+const db = getFirestore(app);
+const friendsRef = db.collection("friends");
+const friendsSnapshot = await friendsRef.get();
+const friends = friendsSnapshot.docs.map((doc) => ({
+  id: doc.id,
+  ...doc.data(),
+})) as Friend[];
 ---
 
 <Layout title="dashboard">
@@ -28,4 +44,18 @@ if (!user) {
   <form action="/api/auth/signout">
     <button type="submit">Sign out</button>
   </form>
+
+  <h1>Friends</h1>
+  <ul>
+    {
+      friends.map((friend) => (
+        <li>
+          <a href={`/friend/${friend.id}`}>{friend.name}</a>
+          <span>({friend.age})</span>
+          <strong>{friend.isBestFriend ? "Bestie" : "Friend"}</strong>
+          <a href={`/edit/${friend.id}`}>Edit</a>
+        </li>
+      ))
+    }
+  </ul>
 </Layout>
