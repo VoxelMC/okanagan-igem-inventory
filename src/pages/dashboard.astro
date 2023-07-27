@@ -30,7 +30,7 @@ interface Friend {
 }
 
 const db = getFirestore(app);
-const friendsRef = db.collection("friends");
+const friendsRef = db.collection("data");
 const friendsSnapshot = await friendsRef.get();
 const friends = friendsSnapshot.docs.map((doc) => ({
   id: doc.id,
