@@ -6,4 +6,7 @@ export default defineConfig({
   output: 'server',
   adapter: vercel(),
   // site: "https://okanagan-igem-inventory.vercel.app/",
+  redirects: {
+    '/login': '/signin'
+  }
 });

@@ -17,9 +17,27 @@ const { title } = Astro.props;
 		<title>{title}</title>
 	</head>
 	<body>
+		<nav class="topNav">
+			<a href="/">Home</a>
+			<a href="/login">Login</a>
+			<a href="/add">Add</a>
+			<a href="/dashboard">Dashboard</a>
+		</nav>
 		<slot />
 	</body>
 </html>
+
+<style>
+	.topNav {
+		display: flex;
+	}
+
+	.topNav a {
+		margin-right: 1ch;
+		text-decoration: none;
+	}
+</style>
+
 <style is:global>
 	:root {
 		--accent: 136, 58, 234;

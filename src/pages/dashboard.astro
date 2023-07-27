@@ -9,7 +9,6 @@ const auth = getAuth(app);
 
 /* Check current session */
 const sessionCookie = Astro.cookies.get("session").value;
-console.log(sessionCookie);
 
 
 if (!sessionCookie) {
@@ -39,8 +38,9 @@ const friends = friendsSnapshot.docs.map((doc) => ({
 ---
 
 <Layout title="dashboard">
-  <h1>Welcome {sessionCookie}</h1>
-  <p>We are happy to see you here</p>
+  <h1>Welcome {user.displayName}</h1>
+  <p>We are happy to see you here.</p>
+  <p><b>SessionID Cookie:</b> {sessionCookie}</p>
   <form action="/api/auth/signout">
     <button type="submit">Sign out</button>
   </form>
