@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "TEst",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -12,7 +12,8 @@
   "dependencies": {
     "@astrojs/vercel": "^3.7.4",
     "astro": "^2.9.3",
+    "fastify": "^4.20.0",
     "firebase": "^10.1.0",
     "firebase-admin": "^11.10.1"
-  }
+  },
 }
