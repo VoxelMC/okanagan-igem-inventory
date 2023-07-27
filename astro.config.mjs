@@ -3,7 +3,7 @@ import vercel from "@astrojs/vercel/serverless";
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'server',
+  output: 'hybrid',
   adapter: vercel(),
   site: "https://okanagan-igem-inventory.vercel.app/"
 });
