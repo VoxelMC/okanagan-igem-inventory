@@ -2,60 +2,68 @@
 // export const prerender = true;
 import { app } from "../firebase/server";
 import { getAuth } from "firebase-admin/auth";
-import Layout from "../layouts/Layout.astro";
 import { getFirestore } from "firebase-admin/firestore";
+
+import { Prism } from "@astrojs/prism";
+import Layout from "../layouts/Layout.astro";
 
 const auth = getAuth(app);
 
 /* Check current session */
 const sessionCookie = Astro.cookies.get("session").value;
-
+const sessionCookieFormatted =
+    sessionCookie?.match(/.{1,80}/g)?.join("\n") ?? "error.";
 
 if (!sessionCookie) {
-  return Astro.redirect("/signin");
+    return Astro.redirect("/signin");
 }
 const decodedCookie = await auth.verifySessionCookie(sessionCookie);
 const user = await auth.getUser(decodedCookie.uid);
 
+const claims = JSON.stringify(user.customClaims);
+
 if (!user) {
-  return Astro.redirect("/signin");
+    return Astro.redirect("/signin");
 }
 
 interface Friend {
-  id: string;
-  name: string;
-  age: number;
-  isBestFriend: boolean;
+    id: string;
+    name: string;
+    age: number;
+    isBestFriend: boolean;
 }
 
 const db = getFirestore(app);
 const friendsRef = db.collection("data");
 const friendsSnapshot = await friendsRef.get();
 const friends = friendsSnapshot.docs.map((doc) => ({
-  id: doc.id,
-  ...doc.data(),
+    id: doc.id,
+    ...doc.data(),
 })) as Friend[];
 ---
 
 <Layout title="dashboard">
-  <h1>Welcome {user.displayName}</h1>
-  <p>We are happy to see you here.</p>
-  <p><b>SessionID Cookie:</b> {sessionCookie}</p>
-  <form action="/api/auth/signout">
-    <button type="submit">Sign out</button>
-  </form>
+    <h1>Welcome {user.displayName}</h1>
+    <p>We are happy to see you here.</p>
+    <h3 style="margin-bottom: 2px;">SessionID Cookie:</h3>
+    <Prism code={sessionCookieFormatted} />
+    <h3>User Claims</h3>
+    <Prism code={`${claims}`} />
+    <form action="/api/auth/signout">
+        <button type="submit">Sign out</button>
+    </form>
 
-  <h1>Friends</h1>
-  <ul>
-    {
-      friends.map((friend) => (
-        <li>
-          <a href={`/data/${friend.id}`}>{friend.name}</a>
-          <span>({friend.age})</span>
-          <strong>{friend.isBestFriend ? "Bestie" : "Friend"}</strong>
-          <a href={`/edit/${friend.id}`}>Edit</a>
-        </li>
-      ))
-    }
-  </ul>
+    <h1>Friends</h1>
+    <ul>
+        {
+            friends.map((friend) => (
+                <li>
+                    <a href={`/data/${friend.id}`}>{friend.name}</a>
+                    <span>({friend.age})</span>
+                    <strong>{friend.isBestFriend ? "Bestie" : "Friend"}</strong>
+                    <a href={`/edit/${friend.id}`}>Edit</a>
+                </li>
+            ))
+        }
+    </ul>
 </Layout>
