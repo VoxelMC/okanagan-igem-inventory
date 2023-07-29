@@ -6,13 +6,13 @@ import { getFirestore } from "firebase-admin/firestore";
 
 import { Prism } from "@astrojs/prism";
 import Layout from "../layouts/Layout.astro";
+import LocationTag from "../components/locations/LocationTag.astro";
 
 const auth = getAuth(app);
 
 /* Check current session */
 const sessionCookie = Astro.cookies.get("session").value;
-const sessionCookieFormatted =
-    sessionCookie?.match(/.{1,80}/g)?.join("\n") ?? "error.";
+const sessionCookieFormatted = sessionCookie?.match(/.{1,80}/g)?.join("\n") ?? "error.";
 
 if (!sessionCookie) {
     return Astro.redirect("/signin");
@@ -52,6 +52,10 @@ const friends = friendsSnapshot.docs.map((doc) => ({
     <form action="/api/auth/signout">
         <button type="submit">Sign out</button>
     </form>
+
+    <br />
+
+    <LocationTag tagColor="#e7689c">SnowFlake</LocationTag>
 
     <h1>Friends</h1>
     <ul>

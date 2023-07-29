@@ -5,7 +5,11 @@ module.exports = {
 		preflight: false
 	},
 	theme: {
-		extend: {},
+		extend: {
+			borderWidth: {
+				'none': "0!important"
+			}
+		},
 	},
 	plugins: [],
 }
