@@ -4,18 +4,100 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Register">
-  <h1>Register</h1>
-  <p>Already have an account? <a href="/signin">Sign in</a></p>
-  <form style="display: flex; flex-direction: column; width: 40%;" action="/api/auth/register" method="post">
-    <label for="name">Name*</label>
-    <input type="text" name="name" id="name" />
-    <label for="email" for="email">Email*</label>
-    <input type="email" name="email" id="email" />
-    <label for="password">Password*</label>
-    <input type="password" name="password" id="password" />
-    <label for="roleToken">Role Token*</label>
-    <input type="text" name="roleToken" id="roleToken" />
-	<br>
-    <button type="submit">Login</button>
-  </form>
+    <!-- <div class="w-screen h-screen flex content-center justify-center"> -->
+    <form id="registerForm" class="flex-1 flex my-20" action="/api/auth/register" method="post">
+        <div class="mx-auto prose mt-8 flex flex-col justify-center w-10/12 items-center rounded-xl py-16 bg-neutral self-start">
+            <h1 class="mb-0 w-fit">Register</h1>
+            <p class="my-2">Already have an account? <a href="/signin">Log in</a></p>
+            <div class="divider w-3/5 self-center"></div>
+
+            <section class="form-control w-3/5">
+                <label for="name" class="label text-primary pb-1">
+                    <span class="label-text"><b>Full Name</b></span>
+                </label>
+                <input type="text" name="name" id="name" placeholder="John Doe" class="input input-md border-2 input-primary input-bordered border-solid" />
+            </section>
+
+            <section class="form-control w-3/5">
+                <label for="email" class="label text-primary pt-4 pb-1">
+                    <span class="label-text"><b>Email</b></span>
+                </label>
+                <input type="email" name="email" id="email" placeholder="someone@email.com" class="input input-md border-2 input-primary input-bordered border-solid" />
+            </section>
+
+            <section class="form-control w-3/5">
+                <label for="password" class="label text-primary pt-4 pb-1">
+                    <span class="label-text"><b>Password</b></span>
+                </label>
+                <input type="password" name="password" id="password" placeholder="Password" class="input input-md input-bordered border-2 border-solid input-primary max-w-xs" />
+            </section>
+
+            <section class="form-control w-3/5">
+                <label for="confirm-password" class="label text-primary pt-4 pb-1">
+                    <span class="label-text"><b>Confirm Password</b></span>
+                    <span id="confirm-msg" class="label-text-alt"></span>
+                </label>
+                <input type="password" name="confirm-password" id="confirm-password" placeholder="Password" class="input input-md input-bordered border-2 border-solid input-secondary max-w-xs" />
+            </section>
+
+            <section class="form-control w-3/5">
+                <label for="roleToken" class="label text-primary pt-4 pb-1">
+                    <span class="label-text"><b>Token</b></span>
+                </label>
+                <input type="text" name="roleToken" id="roleToken" placeholder="Role Token" class="input input-md border-2 input-accent input-bordered border-solid" />
+            </section>
+            <button id="submitButton" class="btn btn-primary btn-outline border-solid border-2 w-xs mt-8 w-3/5" type="submit">Register</button>
+        </div>
+    </form>
 </Layout>
+
+<script>
+    import { getAuth, inMemoryPersistence, signInWithEmailAndPassword } from "firebase/auth";
+    import { app } from "../firebase/client";
+
+    const auth = getAuth(app);
+    // This will prevent the browser from storing session data
+    auth.setPersistence(inMemoryPersistence);
+
+    const form = document.getElementById("registerForm") as HTMLFormElement;
+    form.addEventListener("submit", async e => {
+        const formData = new FormData(form);
+        const name = formData.get("email")?.toString() as string;
+        const email = formData.get("password")?.toString() as string;
+        const password = formData.get("password")?.toString() as string;
+        const confirm = formData.get("password-confirm")?.toString() as string;
+        const roleToken = formData.get("email")?.toString() as string;
+
+        const buttonElement = document.getElementById("submitButton") as HTMLElement;
+        const confirmElement = document.getElementById("confirm-password") as HTMLInputElement;
+
+        if (!confirmElement.checkValidity() || !name || !email || !password || !confirm || !roleToken) {
+            buttonElement.classList.add("btn-error");
+            buttonElement.classList.remove("btn-primary");
+            e.preventDefault();
+            return;
+        }
+    });
+
+    /////////////////////////////////////
+    let passwordElement = document.getElementById("password") as HTMLInputElement;
+    let confirmElement = document.getElementById("confirm-password") as HTMLInputElement;
+    const confirmLabel = document.getElementById("confirm-msg");
+
+    function validatePassword() {
+        if (passwordElement.value != confirmElement.value) {
+            confirmElement.setCustomValidity("Passwords don't match!");
+            confirmLabel!.innerText = "Passwords don't match!";
+            confirmLabel!.classList.add("text-error");
+            confirmLabel!.classList.remove("text-success");
+        } else {
+            confirmElement.setCustomValidity("");
+            confirmLabel!.innerText = "Passwords match.";
+            confirmLabel!.classList.add("text-success");
+            confirmLabel!.classList.remove("text-error");
+        }
+    }
+
+    passwordElement.onchange = validatePassword;
+    confirmElement.onkeyup = validatePassword;
+</script>

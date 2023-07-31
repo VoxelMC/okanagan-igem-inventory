@@ -15,27 +15,27 @@ if (sessionCookie) {
 ---
 
 <Layout title="Sign in">
-    <form action="/api/auth/signin" method="post">
-        <div class="mx-auto prose mt-8 flex flex-col justify-center w-10/12 items-center">
+    <form action="/api/auth/signin" class="flex-1 flex my-20" method="post">
+        <div class="mx-auto prose mt-8 flex flex-col justify-center w-10/12 items-center rounded-xl py-16 bg-neutral self-start">
             <h1 class="mb-0 w-fit">Sign In</h1>
 
-            <p class="my-2">New Here? <a href="/register">Create an account</a></p>
+            <p class="my-2">New here? <a href="/register">Create an account</a></p>
             <div class="divider w-3/5 self-center"></div>
             <section class="form-control w-3/5">
-                <label for="email" class="label text-primary">
-                    <span class="label-text">Email</span>
+                <label for="email" class="label text-primary pt-4 pb-1">
+                    <span class="label-text"><b>Email</b></span>
                 </label>
                 <input type="email" name="email" id="email" placeholder="someone@email.com" class="input input-md border-2 input-primary input-bordered border-solid" />
             </section>
 
             <section class="form-control w-3/5">
-                <label for="password" class="label text-primary">
-                    <span class="label-text">Password</span>
+                <label for="password" class="label text-primary pt-4 pb-1">
+                    <span class="label-text"><b>Password</b></span>
                 </label>
                 <input type="password" name="password" id="password" placeholder="someone@email.com" class="input input-md input-bordered border-2 border-solid input-primary max-w-xs" />
             </section>
 
-            <button class="btn btn-primary w-xs mt-8 w-3/5" type="submit">Login</button>
+            <button class="btn btn-primary btn-outline border-solid border-2 w-xs mt-8 w-3/5" type="submit">Sign In</button>
         </div>
     </form>
 </Layout>
