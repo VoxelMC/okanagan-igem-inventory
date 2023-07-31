@@ -1,0 +1,28 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import LocationsFormText from "../../components/locations/LocationsFormText.astro";
+import LocationsFormTextArea from "../../components/locations/LocationsFormTextArea.astro";
+import ColorPicker from "../../components/forms/ColorPicker.astro";
+---
+
+<Layout title="Add A Location">
+    <form id="registerForm" class="flex my-20 w-full justify-center" action="/api/auth/register" method="post">
+        <div class="prose-sm mt-8 flex flex-col w-5/6 rounded-xl bg-neutral self-start p-10">
+            <h1 class="mb-0 w-fit text-color-choose">Create a New Location</h1>
+            <div class="divider w-full self-center"></div>
+
+            <section class="flex flex-row space-x-9">
+                <LocationsFormText type="text" name="name" id="name" class="w-2/5" placeholder="Location Name">Location Name</LocationsFormText>
+                <ColorPicker id="colorPicker" />
+            </section>
+
+            <section class="flex flex-row">
+                <LocationsFormTextArea name="description" id="description" class="w-full" placeholder="Please provide details about where this location is, requirements for access, etc.">Description</LocationsFormTextArea>
+            </section>
+        </div>
+    </form>
+</Layout>
+
+<script>
+    const colorPicker = document.getElementById("colorPicker") as any;
+</script>

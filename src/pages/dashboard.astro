@@ -31,12 +31,17 @@ interface Friend {
     name: string;
     age: number;
     isBestFriend: boolean;
+    test: {
+        age: number;
+        isBestFriend: boolean;
+        name: string;
+    };
 }
 
 const db = getFirestore(app);
 const friendsRef = db.collection("data");
 const friendsSnapshot = await friendsRef.get();
-const friends = friendsSnapshot.docs.map((doc) => ({
+const friends = friendsSnapshot.docs.map(doc => ({
     id: doc.id,
     ...doc.data(),
 })) as Friend[];
@@ -60,7 +65,7 @@ const friends = friendsSnapshot.docs.map((doc) => ({
     <h1>Friends</h1>
     <ul>
         {
-            friends.map((friend) => (
+            friends.map(friend => (
                 <li>
                     <a href={`/data/${friend.id}`}>{friend.name}</a>
                     <span>({friend.age})</span>

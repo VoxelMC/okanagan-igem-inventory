@@ -19,6 +19,7 @@
 		"tailwindcss": "^3.3.3"
 	},
 	"devDependencies": {
+		"@eastdesire/jscolor": "^2.5.1",
 		"@tailwindcss/typography": "^0.5.9",
 		"daisyui": "^3.5.0",
 		"firebase-admin": "^11.10.1"

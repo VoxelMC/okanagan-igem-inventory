@@ -1,0 +1,18 @@
+---
+export interface Props {
+    type: astroHTML.JSX.HTMLInputTypeAttribute;
+    name: string;
+    id: string;
+    class?: string;
+    placeholder?: string;
+}
+
+const { type, name, id, class: addclasses = "", placeholder } = Astro.props;
+---
+
+<section class:list={["form-control", new Set([addclasses])]}>
+    <label for="name" class="label text-primary pb-1">
+        <span class="label-text"><b><slot /></b></span>
+    </label>
+    <input {type} {name} {id} {placeholder} class="input input-sm border-2 border-white input-bordered border-solid border-color-choose" />
+</section>

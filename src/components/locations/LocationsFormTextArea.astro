@@ -1,0 +1,17 @@
+---
+export interface Props {
+    name: string;
+    id: string;
+    class?: string;
+    placeholder?: string;
+}
+
+const { name, id, class: addclasses = "", placeholder } = Astro.props;
+---
+
+<section class:list={["form-control", new Set([addclasses])]}>
+    <label for="name" class="label text-primary pb-1">
+        <span class="label-text"><b><slot /></b></span>
+    </label>
+    <textarea style="resize: vertical; height: 2lh;" name="name" id="name" {placeholder} class="input input-sm border-2 border-white input-bordered border-solid border-color-choose"></textarea>
+</section>

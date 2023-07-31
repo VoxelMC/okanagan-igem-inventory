@@ -12,9 +12,12 @@ const { title } = Astro.props;
         <meta charset="UTF-8" />
         <meta name="description" content="Astro description" />
         <meta name="viewport" content="width=device-width" />
-        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="/favicon-light.ico" media="(prefers-color-scheme: light)" />
+        <link rel="icon" type="image/x-icon" href="/favicon-dark.ico" media="(prefers-color-scheme: light)" />
         <meta name="generator" content={Astro.generator} />
         <title>{title}</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.5.1/jscolor.min.js" integrity="sha512-/e+XGe8oSD9M1t0NKNCrUlRsiyeFTiZw4+pmf0g8wTbc8IfiLwJsjTODc/pq3hKhKAdsehJs7STPvX7SkFSpOQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <!-- <script src="jscolor.js"></script> -->
     </head>
     <body>
         <nav class="topNav">
