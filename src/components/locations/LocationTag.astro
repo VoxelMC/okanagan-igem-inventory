@@ -3,15 +3,9 @@ export interface Props {
     tagColor: string;
 }
 const { tagColor } = Astro.props;
-
-const tagBg = "bg-[" + tagColor.toString() + "]";
-console.log(tagColor);
 ---
 
-<link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 <style>
     .material-symbols-outlined {
@@ -22,34 +16,26 @@ console.log(tagColor);
     }
 </style>
 
-<div
-    class="border-solid rounded-md border-2 border-black-500 w-fit h-8 flex divide-solid divide-x overflow-hidden"
->
-    <div class="flex justify-center w-8 h-8 bg-sky-400">
+<div class="border-black-500 w-fit divide-solid flex h-8 overflow-hidden border-2 border-solid divide-x rounded-md">
+    <div class="bg-sky-400 flex justify-center w-8 h-8">
         <span class="material-symbols-outlined" style="color: white;">ac_unit</span>
     </div>
     <div class:list={["w-2 border-y-none"]} style=`background-color: ${tagColor};`></div>
-    <div
-        class="bg-red-500 w-auto border-y-none text-black flex items-center px-2"
-        style=`background-color: ${tagColor}88;`
-    >
+    <div class="border-y-none flex items-center w-auto px-2 text-black bg-red-500" style=`background-color: ${tagColor}88;`>
         <p class="m-0">
             <slot />
         </p>
     </div>
 </div>
 <br />
-<div
-    class="border-solid rounded-md border-2 border-black-500 w-fit h-8 flex divide-solid divide-x overflow-hidden"
->
+<div class="border-black-500 w-fit divide-solid flex h-8 overflow-hidden border-2 border-solid divide-x rounded-md">
     <div class="flex justify-center w-8 h-8 bg-indigo-800">
         <span class="material-symbols-outlined" style="color: white;">severe_cold</span>
     </div>
     <div class:list={["w-2 border-y-none"]} style=`background-color: ${tagColor};`></div>
-    <div
-        class="bg-red-500 w-auto border-y-none text-black flex items-center px-2"
-        style=`background-color: ${tagColor}88;`
-    >
+    <div class="border-y-none flex items-center w-auto px-2 text-black bg-red-500" style=`background-color: ${tagColor}88;`>
+        ana="ana is a cool programmer"
+        print (ana)
         <p class="m-0">Deep Freezer</p>
     </div>
 </div>
