@@ -1,6 +1,6 @@
---- 
+---
 interface Props {
-	title: string;
+    title: string;
 }
 
 const { title } = Astro.props;
@@ -8,53 +8,52 @@ const { title } = Astro.props;
 
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description">
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<nav class="topNav">
-			<a href="/">Home</a>
-			<a href="/signin">Login</a>
-			<a href="/add">Add</a>
-			<a href="/dashboard">Dashboard</a>
-			<!-- <form style="margin-left: auto; margin-right: 1ch;" action="/api/auth/signout">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="description" content="Astro description" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title}</title>
+    </head>
+    <body>
+        <nav class="topNav">
+            <a href="/">Home</a>
+            <a href="/signin">Login</a>
+            <a href="/add">Add</a>
+            <a href="/dashboard">Dashboard</a>
+            <!-- <form style="margin-left: auto; margin-right: 1ch;" action="/api/auth/signout">
 				<button type="submit">Sign out</button>
 			</form> -->
-		</nav>
-		<slot />
-	</body>
+        </nav>
+        <slot />
+    </body>
 </html>
 
 <style>
-	.topNav {
-		display: flex;
-	}
+    .topNav {
+        display: flex;
+    }
 
-	.topNav a {
-		margin-right: 1ch;
-		text-decoration: none;
-	}
+    .topNav a {
+        margin-right: 1ch;
+        text-decoration: none;
+    }
 </style>
 
 <style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(45deg, rgb(var(--accent)), rgb(var(--accent-light)) 30%, white 60%);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background: #f9f1e3;
-		background-size: 224px;
-	}
-	code {
-		font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-			Bitstream Vera Sans Mono, Courier New, monospace;
-	}
+    :root {
+        --accent: 136, 58, 234;
+        --accent-light: 224, 204, 250;
+        --accent-dark: 49, 10, 101;
+        --accent-gradient: linear-gradient(45deg, rgb(var(--accent)), rgb(var(--accent-light)) 30%, white 60%);
+    }
+    html {
+        font-family: system-ui, sans-serif;
+        /* background: #f9f1e3; */
+        background-size: 224px;
+    }
+    code {
+        font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+    }
 </style>
