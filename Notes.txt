@@ -1,0 +1,35 @@
+Locations::
+	Location Owner is a Domain Contact
+	Up to 2 more contacts
+	Shelves, Cupboards, Cabinets (Flammable, Acid/Base, Biohazard), Bucket Animal (Specimens), -80
+	Tree View 
+
+Domain Contacts::
+	Every account in a domain is a domain contact, and can make more for people who are not in the domain.
+	Non-linked contacts are given a key to claim the contact when they create an account.
+
+Supplies::
+	
+
+Equipment::
+	Lock behind a Chain of Custody so it cannot be lost track of
+	Checkout Item before learning where it is
+	
+	# in seperate locations
+	Generate a QR code printout to link to the database entry to find where other of this item type are.
+	
+	Transaction system - only know where what you NEED is after confirming the transaction
+		Length of borrow
+		New location
+		User (automatically)
+
+	Borrowing system - lock down some equipment to not be taken or even shown.
+		Make an unavailable status for repair situations, etc.
+		Permission required status
+
+Maximize accountability of the borrower
+
+
+
+Potentially use SCI 142 as a live model.
+	Can get access from Tristyn.

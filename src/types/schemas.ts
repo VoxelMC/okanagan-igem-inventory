@@ -1,19 +1,18 @@
 export type NewLocationSchema = {
 	name: string;
 	description: string;
-	parents: NewLocationSchema[];
-	children: NewLocationSchema[];
+	parents: LocationSchema[];
+	children: LocationSchema[];
 	color: string;
 	type: LocationType;
 };
-
 
 export type LocationSchema = {
 	id: string;
 	name: string;
 	description: string;
-	parents: NewLocationSchema[];
-	children: NewLocationSchema[];
+	parents: LocationSchema[];
+	children: LocationSchema[];
 	color: string;
 	type: LocationType;
 };
