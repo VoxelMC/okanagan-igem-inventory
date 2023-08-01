@@ -1,0 +1,33 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"editor.tokenColorCustomizations": {
+			"[Panda Syntax]": {
+				"textMateRules": [
+					{
+						"scope": "entity.name.tag.astro",
+						"settings": {
+							"foreground": "#FF4B82",
+							"fontStyle": "bold"
+						}
+					}
+				]
+			},
+			"[Ayu Mirage Bordered]": {
+				"textMateRules": [
+					{
+						"scope": "entity.name.tag.astro",
+						"settings": {
+							"foreground": "#FF4B82",
+							"fontStyle": "bold"
+						}
+					}
+				]
+			}
+		}
+	}
+}
