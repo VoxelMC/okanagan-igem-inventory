@@ -27,6 +27,22 @@
 						}
 					}
 				]
+			},
+			"[Ayu Light Bordered]": {
+				"textMateRules": [
+					{
+						"scope": "source.astro",
+						"settings": {
+							"fontStyle": "bold"
+						}
+					},
+					{
+						"scope": "text.astro",
+						"settings": {
+							"fontStyle": ""
+						}
+					}
+				]
 			}
 		}
 	}
