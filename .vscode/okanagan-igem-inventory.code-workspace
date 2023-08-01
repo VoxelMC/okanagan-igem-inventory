@@ -37,6 +37,12 @@
 						}
 					},
 					{
+						"scope": "source.ts",
+						"settings": {
+							"fontStyle": ""
+						}
+					},
+					{
 						"scope": "text.astro",
 						"settings": {
 							"fontStyle": ""
