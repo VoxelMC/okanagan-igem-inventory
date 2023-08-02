@@ -1,18 +1,18 @@
 export type NewLocationSchema = {
 	name: string;
 	description: string;
-	parents: LocationSchema[];
-	children: LocationSchema[];
+	parent: string;
+	children: string[];
 	color: string;
-	type: LocationType;
+	type: ILocationType;
 };
 
 export type LocationSchema = {
 	id: string;
 	name: string;
 	description: string;
-	parents: LocationSchema[];
-	children: LocationSchema[];
+	parent: string;
+	children: string[];
 	color: string;
 	type: LocationType;
 };
@@ -25,3 +25,9 @@ export enum LocationType {
 	BOX = "box",
 	RACK = "rack"
 }
+
+export enum NoneLocationType {
+	NONE = "none"
+}
+
+export type ILocationType = LocationType | NoneLocationType; 

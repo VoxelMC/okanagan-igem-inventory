@@ -14,16 +14,18 @@ const randomColor = Math.floor(Math.random() * 0xfffff * 1000000)
     <label for="color-selector" class="label text-primary pb-1">
         <span class="label-text"><b>Color</b></span>
     </label>
-    <button name="color-selector" style=`color: ${randomColor}"` class="w-9 h-9 rounded-lg border-solid border-white border-2 p-px" {id} data-jscolor=`{value:'#${randomColor}', onChange: 'update(this.toHEXString())'}`></button>
+    <button name="color-selector" style=`color: ${randomColor}"` class="cursor-pointer w-9 h-9 rounded-lg border-solid border-white border-2 p-px" {id} data-jscolor=`{value:'#${randomColor}', onChange: 'update(this.toHEXString())'}`></button>
+    <input type="text" class="hidden" id="color-selector" name="color-selector" value={"#" + randomColor.toUpperCase()} />
 </section>
 
 <script is:inline>
 function update(color) {
-	for (let element of document.getElementsByClassName("border-color-choose")) {
-		element.style.borderColor = color;
-	}
-	for (let element of document.getElementsByClassName("text-color-choose")) {
-		element.style.color = color;
-	}
+    for (let element of document.getElementsByClassName("border-color-choose")) {
+        element.style.borderColor = color;
+    }
+    for (let element of document.getElementsByClassName("text-color-choose")) {
+        element.style.color = color;
+    }
+    document.getElementById("color-selector").value = color;
 }
 </script>
