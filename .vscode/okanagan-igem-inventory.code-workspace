@@ -49,6 +49,35 @@
 						}
 					}
 				]
+			},
+			"[Ayu Dark]": {
+				"textMateRules": [
+					{
+						"scope": "entity.name.tag.astro",
+						"settings": {
+							"foreground": "#FF4B82",
+							"fontStyle": "bold"
+						}
+					},
+					{
+						"scope": "source.astro",
+						"settings": {
+							"fontStyle": "bold"
+						}
+					},
+					{
+						"scope": "source.ts",
+						"settings": {
+							"fontStyle": ""
+						}
+					},
+					{
+						"scope": "text.astro",
+						"settings": {
+							"fontStyle": ""
+						}
+					}
+				]
 			}
 		}
 	}
