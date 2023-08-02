@@ -45,7 +45,7 @@ const sortedLocations = locations.sort((a, b) => locationOrder.indexOf(a.type) -
                     {
                         sortedLocations.map(location => (
                             <label for={location.id}>
-                                <div class="join w-fit h-fit border border-solid border-white mr-4 mb-3 cursor-pointer">
+                                <div class="select-none join w-fit h-fit border border-solid border-white mr-4 mb-3 cursor-pointer">
                                     <div class="join-item flex justify-center items-center w-8 h-8">
                                         <input id={location.id} type="radio" name="radio-name" class="radio m-0 radio-accent border border-solid w-5 h-5" />
                                     </div>
