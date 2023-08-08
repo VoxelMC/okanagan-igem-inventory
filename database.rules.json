@@ -1,10 +1,10 @@
 {
-  "rules": {
-	"$user_id": {
-		".read": "$user_id === auth.uid",
-    	".write": false
-	},
-    ".read": false,
-    ".write": false
-  }
+	"rules": {
+		"$user_id": {
+			".read": "$user_id === auth.uid",
+			".write": false
+		},
+		".read": false,
+		".write": false
+	}
 }
