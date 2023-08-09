@@ -61,7 +61,6 @@ import Layout from "../layouts/Layout.astro";
 
     const form = document.getElementById("registerForm") as HTMLFormElement;
     form.addEventListener("submit", async e => {
-        console.log("here");
         const formData = new FormData(form);
 
         const name = formData.get("email")?.toString() as string;
@@ -72,7 +71,6 @@ import Layout from "../layouts/Layout.astro";
 
         const buttonElement = document.getElementById("submitButton") as HTMLElement;
         const confirmElement = document.getElementById("confirm-password") as HTMLInputElement;
-        console.log(!confirmElement.checkValidity, name, email, password, confirm, roleToken);
 
         if (!confirmElement.checkValidity() || !name || !email || !password || !confirm || !roleToken) {
             buttonElement.classList.add("btn-error");

@@ -45,7 +45,6 @@ export const post: APIRoute = async ({ request, redirect }) => {
 
 	/* Create user */
 	try {
-		console.log("Here");
 		const { data, error } = await supabase.auth.signUp(
 			{
 				email,
@@ -60,7 +59,6 @@ export const post: APIRoute = async ({ request, redirect }) => {
 				}
 			}
 		);
-		console.log("now");
 
 	} catch (error: any) {
 		return new Response(
