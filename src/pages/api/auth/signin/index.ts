@@ -1,7 +1,7 @@
-import type { APIRoute } from "astro";
+import type { APIContext, APIRoute } from "astro";
 import supabase from "../../../../supabase/client";
 
-export const get: APIRoute = async ({ request, cookies, redirect }) => {
+export async function get({ request, cookies, redirect }: APIContext): Promise<Response> {
     const { data, error } = await supabase.auth.signInWithPassword({
         email: request.headers.get("email") || "",
         password: request.headers.get("password") || "",
