@@ -8,7 +8,7 @@ export const get: APIRoute = async ({ request, cookies, redirect }) => {
     });
 
     // DEBUG
-    console.log(`[DEBUG]\nDATA: ${data}\nERROR: ${error}`, data);
+    // console.log(`[DEBUG]\nDATA: ${data}\nERROR: ${error}`, data);
 
     if (error) {
         return new Response(`${error.name}\n${error.message}\n${error.cause}`);
