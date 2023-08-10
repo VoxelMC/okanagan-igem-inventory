@@ -35,6 +35,8 @@ interface Friend {
     isBestFriend: boolean;
 }
 
+console.log(user.user_metadata);
+
 const db = getFirestore(app);
 const friendsRef = db.collection("data");
 const friendsSnapshot = await friendsRef.get();
@@ -45,7 +47,7 @@ const friends = friendsSnapshot.docs.map(doc => ({
 ---
 
 <Layout title="dashboard">
-    <h1>Welcome {user.displayName}</h1>
+    <h1>Welcome {user.user_metadata.displayName}</h1>
     <p>We are happy to see you here.</p>
     <h3 style="margin-bottom: 2px;">SessionID Cookie:</h3>
     <Prism code={sessionCookieFormatted} />
@@ -73,4 +75,4 @@ const friends = friendsSnapshot.docs.map(doc => ({
             ))
         }
     </ul>
-</Layout>../supabase/client
+</Layout>
