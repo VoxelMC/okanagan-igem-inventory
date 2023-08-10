@@ -1,38 +1,40 @@
 import type { APIRoute } from "astro";
-import { app } from "../../../../firebase/server";
-import { getAuth } from "firebase-admin/auth";
+import supabase from "../../../../supabase/supabaseClient";
 
 export const get: APIRoute = async ({ request, cookies, redirect }) => {
-	const auth = getAuth(app);
+    const { data, error } = await supabase.auth.signInWithPassword({
+        email: request.headers.get("email") || "",
+        password: request.headers.get("password") || "",
+    });
 
-	/* Get token from request headers */
-	const idToken = request.headers.get("Authorization")?.split("Bearer ")[1];
-	if (!idToken) {
-		return new Response(
-			"No token found",
-			{ status: 401 }
-		);
-	}
+    // DEBUG
+    console.log(`[DEBUG]\nDATA: ${data}\nERROR: ${error}`);
 
-	/* Verify id token */
-	try {
-		await auth.verifyIdToken(idToken);
-	} catch (error) {
-		return new Response(
-			"Invalid token",
-			{ status: 401 }
-		);
-	}
+    if (error) {
+        return new Response(`${error.name}\n${error.message}\n${error.cause}`);
+    }
 
-	/* Create and set session cookie */
-	const fiveDays = 60 * 60 * 24 * 5 * 1000;
-	const sessionCookie = await auth.createSessionCookie(idToken, {
-		expiresIn: fiveDays,
-	});
+    const { access_token } = data.session;
 
-	cookies.set("session", sessionCookie, {
-		path: "/",
-	});
+    if (!access_token) {
+        return new Response("[ERROR | SIGNIN]\nNO ACCESS TOKEN FOUND", { status: 401 });
+    }
 
-	return redirect("/dashboard");
+    // VERIFY ACCESS TOKEN
+    try {
+        await supabase.auth.getUser(access_token);
+    } catch (error) {
+        return new Response("[ERROR | SIGNIN]\nTOKEN FAILED VERIFICATION", { status: 401 });
+    }
+
+    // SET COOKIE VALUE AND EXPIRATION DATE
+    let date = new Date();
+    date.setDate(date.getDate() + 5);
+
+    cookies.set("session_token", access_token, {
+        path: "/",
+        expires: date,
+    });
+
+    return redirect("/dashboard");
 };

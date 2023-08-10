@@ -1,21 +1,15 @@
 ---
-import { app } from "../firebase/server";
-import { getAuth } from "firebase-admin/auth";
 import Layout from "../layouts/Layout.astro";
+const sessionCookie = Astro.cookies.get("session_token");
 
-/* Check if the user is authenticated */
-const auth = getAuth(app);
-const sessionCookie = Astro.cookies.get("session").value;
-if (sessionCookie) {
-    const decodedCookie = await auth.verifySessionCookie(sessionCookie);
-    if (decodedCookie) {
-        return Astro.redirect("/dashboard");
-    }
-}
+// REDIRECT TO DASHBOARD IF ALREADY LOGGED IN
+// if (sessionCookie) {
+//     return Astro.redirect("/dashboard");
+// }
 ---
 
 <Layout title="Sign in">
-    <form action="/api/auth/signin" class="flex-1 flex my-20" method="post">
+    <form id="signInForm" class="flex-1 flex my-20">
         <div class="mx-auto prose mt-8 flex flex-col justify-center w-10/12 items-center rounded-xl py-16 bg-neutral self-start">
             <h1 class="mb-0 w-fit">Sign In</h1>
 
@@ -41,32 +35,34 @@ if (sessionCookie) {
 </Layout>
 
 <script>
-    import { getAuth, inMemoryPersistence, signInWithEmailAndPassword } from "firebase/auth";
-    import { app } from "../firebase/client";
+    const signInForm = document.querySelector("#signInForm") as HTMLFormElement;
 
-    const auth = getAuth(app);
-    // This will prevent the browser from storing session data
-    auth.setPersistence(inMemoryPersistence);
-
-    const form = document.querySelector("form") as HTMLFormElement;
-    form.addEventListener("submit", async e => {
+    signInForm.addEventListener("submit", async e => {
         e.preventDefault();
-        const formData = new FormData(form);
+
+        // EXTRACT INFORMATION FROM FORM
+        const formData = new FormData(signInForm);
         const email = formData.get("email")?.toString();
         const password = formData.get("password")?.toString();
 
+        // RETURN IF EMAIL OR PASSWORD ARE EMPTY/NOT PROVIDED
         if (!email || !password) {
             return;
         }
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        const idToken = await userCredential.user.getIdToken();
+
+        // DEBUG
+        console.log(`[DEBUG]\nEMAIL: ${email}\nPASSWORD: ${password}`);
+
+        // SEND LOGIN REQUEST TO API
         const response = await fetch("/api/auth/signin", {
             method: "GET",
             headers: {
-                Authorization: `Bearer ${idToken}`,
+                email: email,
+                password: password,
             },
         });
 
+        // REDIRECT TO DASHBOARD
         if (response.redirected) {
             window.location.assign(response.url);
         }
