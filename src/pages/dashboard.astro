@@ -19,8 +19,6 @@ const {
 } = await supabase.auth.getUser(sessionCookie);
 
 if (!user || !sessionCookie) {
-    console.log("here");
-
     return Astro.redirect("/signin");
 }
 
@@ -34,8 +32,6 @@ interface Friend {
     age: number;
     isBestFriend: boolean;
 }
-
-console.log(user.user_metadata);
 
 const db = getFirestore(app);
 const friendsRef = db.collection("data");
