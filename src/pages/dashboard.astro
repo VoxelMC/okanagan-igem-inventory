@@ -24,8 +24,6 @@ if (!user || !sessionCookie) {
     return Astro.redirect("/signin");
 }
 
-console.log(data, "here");
-
 /* Check current session */
 const sessionCookieFormatted = sessionCookie?.match(/.{1,80}/g)?.join("\n") ?? "error.";
 
