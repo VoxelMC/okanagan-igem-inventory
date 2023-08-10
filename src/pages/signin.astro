@@ -2,20 +2,11 @@
 import { app } from "../firebase/server";
 import { getAuth } from "firebase-admin/auth";
 import Layout from "../layouts/Layout.astro";
-
-/* Check if the user is authenticated */
-const auth = getAuth(app);
-const sessionCookie = Astro.cookies.get("session").value;
-if (sessionCookie) {
-    const decodedCookie = await auth.verifySessionCookie(sessionCookie);
-    if (decodedCookie) {
-        return Astro.redirect("/dashboard");
-    }
-}
 ---
 
+<!-- action="/api/auth/signin" class="flex-1 flex my-20" method="post" -->
 <Layout title="Sign in">
-    <form action="/api/auth/signin" class="flex-1 flex my-20" method="post">
+    <form id="signInForm" class="flex-1 flex my-20">
         <div class="mx-auto prose mt-8 flex flex-col justify-center w-10/12 items-center rounded-xl py-16 bg-neutral self-start">
             <h1 class="mb-0 w-fit">Sign In</h1>
 
@@ -41,34 +32,36 @@ if (sessionCookie) {
 </Layout>
 
 <script>
-    import { getAuth, inMemoryPersistence, signInWithEmailAndPassword } from "firebase/auth";
-    import { app } from "../firebase/client";
+    import supabase from "../supabase/supabaseClient";
+    import { signInUser } from "./data/stores/currentUser";
 
-    const auth = getAuth(app);
-    // This will prevent the browser from storing session data
-    auth.setPersistence(inMemoryPersistence);
+    const signInForm = document.querySelector("#signInForm") as HTMLFormElement;
 
-    const form = document.querySelector("form") as HTMLFormElement;
-    form.addEventListener("submit", async e => {
+    signInForm.addEventListener("submit", async e => {
         e.preventDefault();
-        const formData = new FormData(form);
+
+        const formData = new FormData(signInForm);
         const email = formData.get("email")?.toString();
         const password = formData.get("password")?.toString();
 
         if (!email || !password) {
             return;
         }
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        const idToken = await userCredential.user.getIdToken();
-        const response = await fetch("/api/auth/signin", {
-            method: "GET",
-            headers: {
-                Authorization: `Bearer ${idToken}`,
-            },
+
+        console.log("Email: " + email + " Password: " + password);
+
+        const { data, error } = await supabase.auth.signInWithPassword({
+            email: email,
+            password: password,
         });
 
-        if (response.redirected) {
-            window.location.assign(response.url);
+        console.log("DATA\n", data);
+        console.log("ERROR\n", error);
+
+        if (!error) {
+            const { user, session } = data;
+            signInUser(user);
+            window.location.href = "./testSignIn";
         }
     });
 </script>

@@ -1,0 +1,24 @@
+---
+---
+
+<script>
+    import { isSignedIn } from "./data/stores/currentUser";
+    console.log(isSignedIn());
+</script>
+
+<h1 class="text-6xl font-black">Success! You have been logged in!</h1>
+<button id="signOut">Sign out</button>
+
+<script>
+    import { signOutUser } from "./data/stores/currentUser";
+    import { isSignedIn } from "./data/stores/currentUser";
+    console.log(isSignedIn());
+
+    const btn = document.querySelector("#signOut") as HTMLButtonElement;
+
+    btn.addEventListener("click", e => {
+        // if (!signOutUser()) {
+        window.location.href = "./signin";
+        // }
+    });
+</script>
