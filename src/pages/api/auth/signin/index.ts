@@ -8,23 +8,23 @@ export const get: APIRoute = async ({ request, cookies, redirect }) => {
     });
 
     // DEBUG
-    console.log(`[DEBUG]\nDATA: ${data}\nERROR: ${error}`, data);
+    // console.log(`[DEBUG]\nDATA: ${data}\nERROR: ${error}`, data);
 
     if (error) {
-        return new Response(`${error.name}\n${error.message}\n${error.cause}`);
+        return new Response(JSON.stringify({ message: "[ERROR | SIGNIN]\nSIGN IN WITH PROVIDED CREDENTIALS FAILED" }), { status: 401 });
     }
 
     const { access_token: accessToken } = data.session;
 
     if (!accessToken) {
-        return new Response("[ERROR | SIGNIN]\nNO ACCESS TOKEN FOUND", { status: 401 });
+        return new Response(JSON.stringify({ message: "[ERROR | SIGNIN]\nNO ACCESS TOKEN FOUND" }), { status: 401 });
     }
 
     // VERIFY ACCESS TOKEN
     try {
         await supabase.auth.getUser(accessToken);
     } catch (error) {
-        return new Response("[ERROR | SIGNIN]\nTOKEN FAILED VERIFICATION", { status: 401 });
+        return new Response(JSON.stringify({ message: "[ERROR | SIGNIN]\nTOKEN FAILED VERIFICATION" }), { status: 401 });
     }
 
     // SET COOKIE VALUE AND EXPIRATION DATE
