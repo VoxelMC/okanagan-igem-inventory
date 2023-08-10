@@ -1,10 +1,13 @@
 ---
-import { app } from "../firebase/server";
-import { getAuth } from "firebase-admin/auth";
 import Layout from "../layouts/Layout.astro";
+const sessionCookie = Astro.cookies.get("session_token");
+
+// REDIRECT TO DASHBOARD IF ALREADY LOGGED IN
+// if (sessionCookie) {
+//     return Astro.redirect("/dashboard");
+// }
 ---
 
-<!-- action="/api/auth/signin" class="flex-1 flex my-20" method="post" -->
 <Layout title="Sign in">
     <form id="signInForm" class="flex-1 flex my-20">
         <div class="mx-auto prose mt-8 flex flex-col justify-center w-10/12 items-center rounded-xl py-16 bg-neutral self-start">
@@ -32,36 +35,36 @@ import Layout from "../layouts/Layout.astro";
 </Layout>
 
 <script>
-    import supabase from "../supabase/supabaseClient";
-    import { signInUser } from "./data/stores/currentUser";
-
     const signInForm = document.querySelector("#signInForm") as HTMLFormElement;
 
     signInForm.addEventListener("submit", async e => {
         e.preventDefault();
 
+        // EXTRACT INFORMATION FROM FORM
         const formData = new FormData(signInForm);
         const email = formData.get("email")?.toString();
         const password = formData.get("password")?.toString();
 
+        // RETURN IF EMAIL OR PASSWORD ARE EMPTY/NOT PROVIDED
         if (!email || !password) {
             return;
         }
 
-        console.log("Email: " + email + " Password: " + password);
+        // DEBUG
+        console.log(`[DEBUG]\nEMAIL: ${email}\nPASSWORD: ${password}`);
 
-        const { data, error } = await supabase.auth.signInWithPassword({
-            email: email,
-            password: password,
+        // SEND LOGIN REQUEST TO API
+        const response = await fetch("/api/auth/signin", {
+            method: "GET",
+            headers: {
+                email: email,
+                password: password,
+            },
         });
 
-        console.log("DATA\n", data);
-        console.log("ERROR\n", error);
-
-        if (!error) {
-            const { user, session } = data;
-            signInUser(user);
-            window.location.href = "./testSignIn";
+        // REDIRECT TO DASHBOARD
+        if (response.redirected) {
+            window.location.assign(response.url);
         }
     });
 </script>
