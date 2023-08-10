@@ -3,7 +3,7 @@ import { getAuth } from "firebase-admin/auth";
 import * as admin from 'firebase-admin';
 import { app } from "../../../../firebase/server";
 import { getFirestore } from "firebase-admin/firestore";
-import { supabase } from "../../../../supabase/server";
+import { supabase } from "../../../../supabase/client";
 
 interface IRoles {
 	Admin: string,

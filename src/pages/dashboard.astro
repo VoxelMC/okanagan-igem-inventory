@@ -3,7 +3,7 @@
 import { app } from "../firebase/server";
 import { getAuth } from "firebase-admin/auth";
 import { getFirestore } from "firebase-admin/firestore";
-import { supabase } from "../supabase/server";
+import { supabase } from "../supabase/client";
 
 import { Prism } from "@astrojs/prism";
 import Layout from "../layouts/Layout.astro";
@@ -51,6 +51,7 @@ const friends = friendsSnapshot.docs.map(doc => ({
     <Prism code={sessionCookieFormatted} />
     <h3>User Claims</h3>
     <!-- <Prism code={`${claims}`} /> -->
+
     <form action="/api/auth/signout">
         <button type="submit">Sign out</button>
     </form>
@@ -72,4 +73,4 @@ const friends = friendsSnapshot.docs.map(doc => ({
             ))
         }
     </ul>
-</Layout>
+</Layout>../supabase/client
