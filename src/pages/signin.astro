@@ -51,7 +51,7 @@ const sessionCookie = Astro.cookies.get("session_token");
         }
 
         // DEBUG
-        console.log(`[DEBUG]\nEMAIL: ${email}\nPASSWORD: ${password}`);
+        // console.log(`[DEBUG]\nEMAIL: ${email}\nPASSWORD: ${password}`);
 
         // SEND LOGIN REQUEST TO API
         const response = await fetch("/api/auth/signin", {
