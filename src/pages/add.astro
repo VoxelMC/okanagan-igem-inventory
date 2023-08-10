@@ -1,10 +1,5 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import sessionExists from "./api/validation/sessionExists";
-
-if (await sessionExists()) {
-    return Astro.redirect("/dashboard");
-}
 ---
 
 <Layout title="Add a new friend">
