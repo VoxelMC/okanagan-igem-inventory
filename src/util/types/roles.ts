@@ -1,5 +1,0 @@
-export enum ROLE_TOKENS {
-	ADMIN,
-	MEMBER,
-	VOLUNTEER
-}

@@ -7,7 +7,7 @@ import LocationTag from "../../components/locations/LocationTag.astro";
 
 import { app } from "../../firebase/server";
 import { getFirestore } from "firebase-admin/firestore";
-import { LocationSchema, LocationType } from "../../types/schemas";
+import { LocationSchema, LocationType } from "../../util/types/schemas";
 
 const db = getFirestore(app);
 const dbReference = db.collection("locations");
