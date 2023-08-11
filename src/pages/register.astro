@@ -12,7 +12,7 @@ if (sessionToken && (await sessionExists(sessionToken))) {
 
 <Layout title="Register">
     <!-- <div class="w-screen h-screen flex content-center justify-center"> -->
-    <form id="registerForm" class="flex-1 flex my-20" action="/api/auth/register/supabase" method="post">
+    <form id="registerForm" class="flex-1 flex my-20" action="/api/auth/register" method="post">
         <div class="mx-auto prose mt-8 flex flex-col justify-center w-10/12 items-center rounded-xl py-16 bg-neutral self-start">
             <h1 class="mb-0 w-fit">Register</h1>
             <p class="my-2">Already have an account? <a href="/signin">Log in</a></p>
