@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 import supabase from "../../../supabase/client";
-import type { IRoles } from "../../../util/types/roles";
+import { getRoles } from "../../../supabase/database.functions";
 
 export const post: APIRoute = async ({ request, redirect }) => {
     // GET FORM DATA
@@ -15,13 +15,8 @@ export const post: APIRoute = async ({ request, redirect }) => {
         return new Response(JSON.stringify({ message: "[ERROR | SIGNUP]\nMISSING FORM DATA" }), { status: 400 });
     }
 
-    const roles: IRoles = {
-        ADMIN: "voNbpVJldvyrLk",
-        MEMBER: "Y1ad819dcWzMl7",
-        VOLUNTEER: "WzIPWrwOXbRsk5",
-    };
-
-    const role = Object.keys(roles).find((key) => roles[key as keyof IRoles] === roleToken);
+    const roles: Object = await getRoles();
+    const role = Object.keys(roles).find((key) => roles[key as keyof Object].toString() === roleToken);
 
     const { data, error } = await supabase.auth.signUp({
         email,
