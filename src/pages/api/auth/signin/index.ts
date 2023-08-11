@@ -14,7 +14,7 @@ export async function get({ request, cookies, redirect }: APIContext): Promise<R
         return new Response(JSON.stringify({ message: "[ERROR | SIGNIN]\nSIGN IN WITH PROVIDED CREDENTIALS FAILED" }), { status: 401 });
     }
 
-    const { access_token: accessToken } = data.session;
+    const accessToken = data.session.access_token;
 
     if (!accessToken) {
         return new Response(JSON.stringify({ message: "[ERROR | SIGNIN]\nNO ACCESS TOKEN FOUND" }), { status: 401 });
@@ -37,4 +37,4 @@ export async function get({ request, cookies, redirect }: APIContext): Promise<R
     });
 
     return redirect("/dashboard");
-};
+}

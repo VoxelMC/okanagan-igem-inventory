@@ -5,6 +5,7 @@ import sessionExists from "../util/validation/sessionExists";
 // GET SESSION TOKEN FROM COOKIES
 const sessionToken = Astro.cookies.get("session_token").value;
 
+// REDIRECT TO DASHBOARD IF ALREADY LOGGED IN
 if (sessionToken && (await sessionExists(sessionToken))) {
     return Astro.redirect("/dashboard");
 }
@@ -12,7 +13,7 @@ if (sessionToken && (await sessionExists(sessionToken))) {
 
 <Layout title="Register">
     <!-- <div class="w-screen h-screen flex content-center justify-center"> -->
-    <form id="registerForm" class="flex-1 flex my-20" action="/api/auth/register/supabase" method="post">
+    <form id="registerForm" class="flex-1 flex my-20" action="/api/auth/register" method="post">
         <div class="mx-auto prose mt-8 flex flex-col justify-center w-10/12 items-center rounded-xl py-16 bg-neutral self-start">
             <h1 class="mb-0 w-fit">Register</h1>
             <p class="my-2">Already have an account? <a href="/signin">Log in</a></p>
@@ -22,21 +23,21 @@ if (sessionToken && (await sessionExists(sessionToken))) {
                 <label for="name" class="label text-primary pb-1">
                     <span class="label-text"><b>Full Name</b></span>
                 </label>
-                <input type="text" name="name" id="name" placeholder="John Doe" class="input input-md border-2 input-primary input-bordered border-solid" />
+                <input type="text" name="name" id="name" placeholder="John Doe" class="input input-md border-2 input-primary input-bordered border-solid" required />
             </section>
 
             <section class="form-control w-3/5">
                 <label for="email" class="label text-primary pt-4 pb-1">
                     <span class="label-text"><b>Email</b></span>
                 </label>
-                <input type="email" name="email" id="email" placeholder="someone@email.com" class="input input-md border-2 input-primary input-bordered border-solid" />
+                <input type="email" name="email" id="email" placeholder="someone@email.com" class="input input-md border-2 input-primary input-bordered border-solid" required />
             </section>
 
             <section class="form-control w-3/5">
                 <label for="password" class="label text-primary pt-4 pb-1">
                     <span class="label-text"><b>Password</b></span>
                 </label>
-                <input type="password" name="password" id="password" placeholder="Password" class="input input-md input-bordered border-2 border-solid input-primary max-w-xs" />
+                <input type="password" name="password" id="password" placeholder="Password" class="input input-md input-bordered border-2 border-solid input-primary max-w-xs" required />
             </section>
 
             <section class="form-control w-3/5">
@@ -44,7 +45,7 @@ if (sessionToken && (await sessionExists(sessionToken))) {
                     <span class="label-text"><b>Confirm Password</b></span>
                     <span id="confirm-msg" class="label-text-alt"></span>
                 </label>
-                <input type="password" name="confirm-password" id="confirm-password" placeholder="Password" class="input input-md input-bordered border-2 border-solid input-secondary max-w-xs" />
+                <input type="password" name="confirm-password" id="confirm-password" placeholder="Password" class="input input-md input-bordered border-2 border-solid input-secondary max-w-xs" required />
             </section>
 
             <section class="form-control w-3/5">
@@ -109,4 +110,18 @@ if (sessionToken && (await sessionExists(sessionToken))) {
 
     passwordElement.onchange = validatePassword;
     confirmElement.onkeyup = validatePassword;
+
+    // // SEND SIGNUP REQUEST TO API
+    // const response = await fetch("/api/auth/signin", {
+    //     method: "GET",
+    //     headers: {
+    //         email: email,
+    //         password: password,
+    //     },
+    // });
+
+    // // REDIRECT TO DASHBOARD
+    // if (response.redirected) {
+    //     window.location.assign(response.url);
+    // }
 </script>
