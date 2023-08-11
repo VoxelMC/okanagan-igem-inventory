@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 import { app } from "../../../firebase/server";
 import { getFirestore } from "firebase-admin/firestore";
-import { LocationType, NoneLocationType, type NewLocationSchema } from "../../../types/schemas";
+import { LocationType, NoneLocationType, type NewLocationSchema } from "../../../util/types/schemas";
 
 export const post: APIRoute = async ({ request, redirect }) => {
 	const formData = await request.formData();
