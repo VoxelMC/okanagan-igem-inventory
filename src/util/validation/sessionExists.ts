@@ -1,4 +1,4 @@
-import supabase from "../../../supabase/client";
+import supabase from "../../supabase/client";
 
 export default async function sessionExists(sessionToken: string): Promise<boolean> {
     // CHECK IF IT IS AN ACTIVE SESSION TOKEN
@@ -6,5 +6,5 @@ export default async function sessionExists(sessionToken: string): Promise<boole
         data: { user },
     } = await supabase.auth.getUser(sessionToken);
 
-    return user ? true : false;
+    return !!user;
 }

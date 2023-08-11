@@ -1,9 +1,11 @@
 ---
 import Layout from "../layouts/Layout.astro";
-const sessionCookie = Astro.cookies.get("session_token");
+import sessionExists from "../util/validation/sessionExists";
+
+const sessionToken = Astro.cookies.get("session_token").value;
 
 // REDIRECT TO DASHBOARD IF ALREADY LOGGED IN
-if (sessionCookie.value) {
+if (sessionToken && (await sessionExists(sessionToken))) {
     return Astro.redirect("/dashboard");
 }
 ---
