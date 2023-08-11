@@ -21,7 +21,6 @@ const {
 if (!user || !sessionCookie) {
     return Astro.redirect("/signin");
 }
-
 /* Check current session */
 const sessionCookieFormatted = sessionCookie?.match(/.{1,80}/g)?.join("\n") ?? "error.";
 
@@ -48,7 +47,7 @@ const friends = friendsSnapshot.docs.map(doc => ({
     <h3 style="margin-bottom: 2px;">SessionID Cookie:</h3>
     <Prism code={sessionCookieFormatted} />
     <h3>User Claims</h3>
-    <!-- <Prism code={`${claims}`} /> -->
+    <Prism code={`${JSON.stringify(user.user_metadata)}`} />
 
     <form action="/api/auth/signout">
         <button type="submit">Sign out</button>

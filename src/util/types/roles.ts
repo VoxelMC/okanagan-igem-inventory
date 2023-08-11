@@ -3,3 +3,9 @@ export enum ROLE_TOKENS {
 	MEMBER,
 	VOLUNTEER
 }
+export interface IRoles {
+	ADMIN: string;
+	MEMBER: string;
+	VOLUNTEER: string;
+}
+

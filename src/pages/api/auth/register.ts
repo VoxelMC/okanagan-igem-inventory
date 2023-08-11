@@ -1,36 +1,27 @@
 import type { APIRoute } from "astro";
-import { getAuth } from "firebase-admin/auth";
-import * as admin from "firebase-admin";
-import { app } from "../../../firebase/server";
-import { getFirestore } from "firebase-admin/firestore";
 import supabase from "../../../supabase/client";
-
-interface IRoles {
-    Admin: string;
-    Member: string;
-    Volunteer: string;
-}
+import type { IRoles } from "../../../util/types/roles";
 
 export const post: APIRoute = async ({ request, redirect }) => {
-    const auth = getAuth(app);
-
     // GET FORM DATA
     const formData = await request.formData();
     const email = formData.get("email")?.toString();
     const password = formData.get("password")?.toString();
     const name = formData.get("name")?.toString();
-    const role = formData.get("roleToken")?.toString() || "voNbpVJldvyrLk";
+    const roleToken = formData.get("roleToken")?.toString() || "voNbpVJldvyrLk";
 
     // RETURN IF MISSING FORM DATA
     if (!email || !password || !name) {
         return new Response(JSON.stringify({ message: "[ERROR | SIGNUP]\nMISSING FORM DATA" }), { status: 400 });
     }
 
-    const roles = {
+    const roles: IRoles = {
         ADMIN: "voNbpVJldvyrLk",
         MEMBER: "Y1ad819dcWzMl7",
         VOLUNTEER: "WzIPWrwOXbRsk5",
     };
+
+    const role = Object.keys(roles).find((key) => roles[key as keyof IRoles] === roleToken);
 
     const { data, error } = await supabase.auth.signUp({
         email,
