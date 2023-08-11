@@ -1,58 +1,52 @@
 import type { APIRoute } from "astro";
 import { getAuth } from "firebase-admin/auth";
-import * as admin from 'firebase-admin';
+import * as admin from "firebase-admin";
 import { app } from "../../../../firebase/server";
 import { getFirestore } from "firebase-admin/firestore";
+import supabase from "../../../../supabase/client";
 
 interface IRoles {
-	Admin: string,
-	Member: string,
-	Volunteer: string;
+    Admin: string;
+    Member: string;
+    Volunteer: string;
 }
 
 export const post: APIRoute = async ({ request, redirect }) => {
-	const auth = getAuth(app);
+    const auth = getAuth(app);
 
-	/* Get form data */
-	const formData = await request.formData();
-	const email = formData.get("email")?.toString();
-	const password = formData.get("password")?.toString();
-	const name = formData.get("name")?.toString();
-	const roleToken = formData.get("roleToken")?.toString();
+    // GET FORM DATA
+    const formData = await request.formData();
+    const email = formData.get("email")?.toString();
+    const password = formData.get("password")?.toString();
+    const name = formData.get("name")?.toString();
+    const role = formData.get("roleToken")?.toString() || "voNbpVJldvyrLk";
 
-	if (!email || !password || !name || !roleToken) {
-		return new Response(
-			"Missing form data",
-			{ status: 400 }
-		);
-	}
+    // RETURN IF MISSING FORM DATA
+    if (!email || !password || !name) {
+        return new Response(JSON.stringify({ message: "[ERROR | SIGNUP]\nMISSING FORM DATA" }), { status: 400 });
+    }
 
-	/* Establish User's Role */
-	const db = getFirestore(app);
-	const rolesCollection = db.collection("Role Tokens");
-	const rolesSnapshot = await rolesCollection.get();
-	const roles = rolesSnapshot.docs.map((doc) => ({
-		...doc.data(),
-	}))[0] as IRoles;
+    const roles = {
+        ADMIN: "voNbpVJldvyrLk",
+        MEMBER: "Y1ad819dcWzMl7",
+        VOLUNTEER: "WzIPWrwOXbRsk5",
+    };
 
-	const role = Object.keys(roles).find((key) => roles[key as keyof IRoles] === roleToken);
-	if (!role) return new Response("That is not a valid Role Token.", { status: 401 });
+    const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+            data: {
+                name,
+                role,
+            },
+        },
+    });
 
-	let rolesObj = { [role]: true };
+    if (error) {
+        console.log(error);
+        return new Response(JSON.stringify({ message: "[ERROR | SIGNUP]\nSIGN UP WITH PROVIDED CREDENTIALS FAILED" }), { status: 401 });
+    }
 
-	/* Create user */
-	try {
-		const { uid } = await auth.createUser({
-			email,
-			password,
-			displayName: name,
-		});
-		await auth.setCustomUserClaims(uid, { [role]: true });
-	} catch (error: any) {
-		return new Response(
-			"Something went wrong",
-			{ status: 400 }
-		);
-	}
-	return redirect("/signin");
+    return redirect("/signin");
 };
