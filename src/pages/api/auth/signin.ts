@@ -45,7 +45,6 @@ export async function get({ request, cookies, redirect }: APIContext): Promise<R
             access_token: accessToken,
             refresh_token: data.session.refresh_token,
         });
-        console.log(setSesData);
     } catch (error) { }
     return redirect("/dashboard");
 }
