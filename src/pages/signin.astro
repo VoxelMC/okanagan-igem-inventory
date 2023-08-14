@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import supabase from "../supabase/client";
 import sessionExists from "../util/validation/sessionExists";
 
 // GET SESSION TOKEN FROM COOKIES
@@ -9,6 +10,9 @@ const sessionToken = Astro.cookies.get("session_token").value;
 if (sessionToken && (await sessionExists(sessionToken))) {
     return Astro.redirect("/dashboard");
 }
+
+let { data } = await supabase.auth.getSession();
+console.log(data);
 ---
 
 <Layout title="Sign in">
