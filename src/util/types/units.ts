@@ -18,5 +18,4 @@ export enum OtherUnits {
 	BOTTLES = "bottles",
 	VIALS = "vials",
 	TUBES = "tubes",
-
 }
