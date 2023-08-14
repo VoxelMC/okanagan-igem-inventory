@@ -8,17 +8,18 @@ import supabase from "../supabase/client";
 import Layout from "../layouts/Layout.astro";
 import LocationTag from "../components/locations/LocationTag.astro";
 
-const sessionCookie = Astro.cookies.get("session_token").value;
+// const refreshCookie = Astro.cookies.get("refresh_token").value as string;
+// const sessionCookie = Astro.cookies.get("session_token").value as string;
 
 const {
     data: { user },
-} = await supabase.auth.getUser(sessionCookie);
+} = await supabase.auth.getUser();
 
-if (!user || !sessionCookie) {
+if (!user) {
     return Astro.redirect("/signin");
 }
 /* Check current session */
-const sessionCookieFormatted = sessionCookie?.match(/.{1,80}/g)?.join("\n") ?? "error.";
+// const sessionCookieFormatted = sessionCookie?.match(/.{1,80}/g)?.join("\n") ?? "error.";
 
 /* DATABASE QUERY */
 interface Friend {
@@ -38,15 +39,17 @@ const friends = friendsSnapshot.docs.map(doc => ({
 ---
 
 <Layout title="dashboard">
-    <h1>Welcome {user.user_metadata.displayName}</h1>
+    <h1>Welcome {user.user_metadata.name}</h1>
     <p>We are happy to see you here.</p>
     <h3 style="margin-bottom: 2px;">SessionID Cookie:</h3>
-    <Prism code={sessionCookieFormatted} />
+    <!-- <Prism code={sessionCookieFormatted} /> -->
     <h3>User Claims</h3>
     <Prism code={`${JSON.stringify(user.user_metadata)}`} />
     <form action="/api/auth/signout">
         <button type="submit">Sign out</button>
     </form>
+
+    <div id="fillable"></div>
 
     <br />
 
