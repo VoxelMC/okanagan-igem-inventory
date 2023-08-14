@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 import supabase from "../../../supabase/client";
-import { getRoleFromToken, isRoleTokenValid } from "../../../supabase/database.functions";
+import { getRoleUUIDFromToken, isRoleTokenValid } from "../../../supabase/database.functions";
 
 export const post: APIRoute = async ({ request, redirect }) => {
     // GET FORM DATA
@@ -16,7 +16,7 @@ export const post: APIRoute = async ({ request, redirect }) => {
     }
 
     if (!isRoleTokenValid(roleToken)) return new Response(JSON.stringify({ message: "Invalid Role Token" }), { status: 401 });
-    const role = getRoleFromToken(roleToken);
+    const role = getRoleUUIDFromToken(roleToken);
 
     const { data, error } = await supabase.auth.signUp({
         email,
