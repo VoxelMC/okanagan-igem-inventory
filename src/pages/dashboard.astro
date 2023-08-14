@@ -8,9 +8,6 @@ import supabase from "../supabase/client";
 import Layout from "../layouts/Layout.astro";
 import LocationTag from "../components/locations/LocationTag.astro";
 
-// const refreshCookie = Astro.cookies.get("refresh_token").value as string;
-// const sessionCookie = Astro.cookies.get("session_token").value as string;
-
 const {
     data: { user },
 } = await supabase.auth.getUser();
@@ -19,7 +16,7 @@ const {
     data: { session },
 } = await supabase.auth.getSession();
 
-if (!user) {
+if (!user || !session) {
     return Astro.redirect("/signin");
 }
 /* Check current session */
