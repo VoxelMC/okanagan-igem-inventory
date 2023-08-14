@@ -7,9 +7,6 @@ export async function get({ request, cookies, redirect }: APIContext): Promise<R
         password: request.headers.get("password") || "",
     });
 
-    console.log(data);
-
-
     // DEBUG
     // console.log(`[DEBUG]\nDATA: ${data}\nERROR: ${error}`, data);
 
@@ -42,6 +39,7 @@ export async function get({ request, cookies, redirect }: APIContext): Promise<R
         path: "/",
         expires: date,
     });
+
     try {
         const { data: setSesData } = await supabase.auth.setSession({
             access_token: accessToken,
