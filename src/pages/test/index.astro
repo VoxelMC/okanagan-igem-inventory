@@ -1,0 +1,19 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout title="HTMX Test">
+    <section class="my-28 container p-10 mx-auto overflow-y-scroll prose text-black bg-white rounded-lg">
+        <h1 class="text-black">Data Table</h1>
+        <p>Here is where data will be displayed in a table.</p>
+        <table class="border-spacing-x-0 table table-auto" hx-get="/api/content/test" hx-swap="innerHTML" hx-trigger="load"></table>
+
+        <input name="ASDF" id="include" value="Test" />
+        <div hx-post="/api/content/test" hx-include="[name='ASDF']" hx-trigger="load, click from:#submitter">
+            <div class="fill-black flex justify-center"><img src="loading.svg" class="htmx-indicator" alt="Loading..." /></div>
+        </div>
+        <button id="submitter">POST!</button>
+    </section>
+</Layout>
+
+<script src="https://unpkg.com/htmx.org@1.9.4" integrity="sha384-zUfuhFKKZCbHTY6aRR46gxiqszMk5tcHjsVFxnUo8VMus4kHGVdIYVbOYYNlKmHV" crossorigin="anonymous"></script>
