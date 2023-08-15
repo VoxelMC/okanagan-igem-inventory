@@ -12,27 +12,28 @@ if (sessionToken && (await sessionExists(sessionToken))) {
 ---
 
 <Layout title="Sign in">
-    <form id="signInForm" class="flex-1 flex my-20">
-        <div class="mx-auto prose mt-8 flex flex-col justify-center w-10/12 items-center rounded-xl py-16 bg-neutral self-start">
-            <h1 class="mb-0 w-fit">Sign In</h1>
-
+    <form id="signInForm" class="flex flex-1 my-20">
+        <div class="rounded-xl input-bordered input-primary dark:bg-neutral flex flex-col items-center self-start justify-center w-10/12 py-16 mx-auto mt-8 prose bg-gray-100 border-2 border-solid">
+            <h1 class="w-fit mb-0">Sign In</h1>
             <p class="my-2">New here? <a href="/register">Create an account</a></p>
-            <div class="divider w-3/5 self-center"></div>
+
+            <div class="divider self-center w-3/5"></div>
+
             <section class="form-control w-3/5">
                 <label for="email" class="label text-primary pt-4 pb-1">
                     <span class="label-text"><b>Email</b></span>
                 </label>
-                <input type="email" name="email" id="email" placeholder="someone@email.com" class="input input-md border-2 input-primary input-bordered border-solid" />
+                <input type="email" name="email" id="email" placeholder="someone@email.com" class="input input-md input-primary input-bordered border-2 border-solid" />
             </section>
 
             <section class="form-control w-3/5">
                 <label for="password" class="label text-primary pt-4 pb-1">
                     <span class="label-text"><b>Password</b></span>
                 </label>
-                <input type="password" name="password" id="password" placeholder="someone@email.com" class="input input-md input-bordered border-2 border-solid input-primary max-w-xs" />
+                <input type="password" name="password" id="password" placeholder="someone@email.com" class="input input-md input-bordered input-secondary max-w-xs border-2 border-solid" />
             </section>
 
-            <button class="btn btn-primary btn-outline border-solid border-2 w-xs mt-8 w-3/5" type="submit">Sign In</button>
+            <button class="btn btn-white btn-outline w-xs w-3/5 mt-8 border-2 border-solid" type="submit">Sign In</button>
         </div>
     </form>
 </Layout>

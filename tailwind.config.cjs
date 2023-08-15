@@ -4,7 +4,7 @@ module.exports = {
 	corePlugins: {
 		preflight: false
 	},
-	plugins: [require("daisyui"), require("@tailwindcss/typography")],
+	plugins: [require("@tailwindcss/typography"), require("daisyui")],
 	theme: {
 		extend: {
 			borderWidth: {
@@ -14,11 +14,12 @@ module.exports = {
 	},
 	daisyui: {
 		logs: false,
-		darkTheme: "dark",
-		themes: [
-			"dark",
-			"dracula",
-			"emerald"
-		]
+		// darkTheme: "dark",
+		// themes: [
+		// 	"dark",
+		// 	"dracula",
+		// 	"emerald"
+		// ]
+		themes: ["light", "dark"]
 	}
 }
