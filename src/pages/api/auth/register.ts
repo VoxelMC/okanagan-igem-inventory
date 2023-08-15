@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 import supabase from "../../../supabase/client";
-import { getRoles } from "../../../supabase/database.functions";
+import { getRoleUUIDFromToken, isRoleTokenValid } from "../../../supabase/database.functions";
 
 export const post: APIRoute = async ({ request, redirect }) => {
     // GET FORM DATA
@@ -15,8 +15,8 @@ export const post: APIRoute = async ({ request, redirect }) => {
         return new Response(JSON.stringify({ message: "[ERROR | SIGNUP]\nMISSING FORM DATA" }), { status: 400 });
     }
 
-    const roles: Object = await getRoles();
-    const role = Object.keys(roles).find((key) => roles[key as keyof Object].toString() === roleToken);
+    if (!isRoleTokenValid(roleToken)) return new Response(JSON.stringify({ message: "Invalid Role Token" }), { status: 401 });
+    const role = getRoleUUIDFromToken(roleToken);
 
     const { data, error } = await supabase.auth.signUp({
         email,
@@ -31,7 +31,7 @@ export const post: APIRoute = async ({ request, redirect }) => {
 
     if (error) {
         console.log(error);
-        return new Response(JSON.stringify({ message: "[ERROR | SIGNUP]\nSIGN UP WITH PROVIDED CREDENTIALS FAILED" }), { status: 401 });
+        return new Response(JSON.stringify({ message: "[ERROR | SIGNUP]\nSIGN UP WITH PROVIDED CREDENTIALS FAILED. Please contact the website administrator." }), { status: 401 });
     }
 
     return redirect("/signin");
