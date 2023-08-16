@@ -18,7 +18,7 @@ const friends = friendsSnapshot.docs.map(doc => ({
 	...doc.data(),
 })) as Friend[];
 
-export async function get({ request, redirect, cookies }: APIContext<Record<string, any>>): Promise<Response> {
+export async function get(): Promise<Response> {
 	let outputElement: HTMLTableElement = initElement("table");
 	let tableHeaders = Object.keys(friends[0]);
 
@@ -40,12 +40,10 @@ export async function get({ request, redirect, cookies }: APIContext<Record<stri
 	}
 
 	outputElement.append(tableHead, tableBody);
-
 	return new Response(outputElement.innerHTML, { status: 200 });
 }
 
-
-export async function post({ request, redirect, cookies }: APIContext<Record<string, any>>): Promise<Response> {
-	let data = (await request.formData()).get("ASDF");
+export async function post({ request }: APIContext<Record<string, any>>): Promise<Response> {
+	let data = (await request.formData()).get("ASDF") as FormDataEntryValue;
 	return new Response(`<b>${data}</b>`);
 }
