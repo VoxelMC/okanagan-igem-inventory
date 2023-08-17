@@ -24,8 +24,8 @@ const sortedLocations = locations.sort((a, b) => locationOrder.indexOf(a.type) -
 
 <Layout title="Add A Location">
     <form id="registerForm" class="flex my-20 w-full justify-center" action="/api/locations/add" method="post">
-        <div class="prose-sm mt-8 flex flex-col w-5/6 rounded-xl bg-neutral self-start p-10">
-            <h1 class="mb-0 w-fit text-color-choose">Create a New Location</h1>
+        <div class="prose-sm mt-8 flex flex-col w-5/6 rounded-xl bg-slate-200 dark:bg-neutral self-start p-10">
+            <h1 class="mb-0 w-fit prose-stone">Create a New Location</h1>
             <div class="divider w-full self-center"></div>
 
             <section class="flex flex-row space-x-9 my-2">
@@ -41,7 +41,7 @@ const sortedLocations = locations.sort((a, b) => locationOrder.indexOf(a.type) -
                 <label for="name" class="label text-primary pb-1">
                     <span class="label-text"><b>Parent Location</b></span>
                 </label>
-                <div class="input p-4 flex flex-row flex-wrap h-auto border-white input-bordered border-solid border-2">
+                <div class="input p-4 flex flex-row flex-wrap h-auto border-white input-bordered border-solid border-2 border-color-choose">
                     {
                         sortedLocations.map(location => (
                             <label for={location.id + ".parent"}>
@@ -63,7 +63,7 @@ const sortedLocations = locations.sort((a, b) => locationOrder.indexOf(a.type) -
                 <label for="name" class="label text-primary pb-1">
                     <span class="label-text"><b>Child Locations</b></span>
                 </label>
-                <div class="input p-4 flex flex-row flex-wrap h-auto border-white input-bordered border-solid border-2">
+                <div class="input p-4 flex flex-row flex-wrap h-auto border-white input-bordered border-solid border-2 border-color-choose">
                     {
                         sortedLocations.map(location => (
                             <label for={location.id + ".child"}>
