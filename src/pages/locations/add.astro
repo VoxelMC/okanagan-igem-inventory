@@ -69,7 +69,7 @@ const sortedLocations = locations.sort((a, b) => locationOrder.indexOf(a.type) -
                             <label for={location.id + ".child"}>
                                 <div class="select-none join w-fit h-fit border border-solid border-white mr-4 mb-3 cursor-pointer">
                                     <div class="join-item flex justify-center items-center w-8 h-8">
-                                        <input id={location.id + ".child"} type="checkbox" name="children-ids" class="check m-0 check-accent border border-solid w-5 h-5" value={location.id} />
+                                        <input id={location.id + ".child"} type="checkbox" name="children-ids" class="checkbox m-0 checkbox-accent border border-solid w-5 h-5" value={location.id} />
                                     </div>
                                     <LocationTag class="join-item" tagColor={location.color} type={location.type}>
                                         {location.name}
