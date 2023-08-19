@@ -1,0 +1,60 @@
+---
+import { getFirestore } from "firebase-admin/firestore";
+import { app } from "../../../firebase/server";
+import supabase from "../../../supabase/client";
+
+interface Friend {
+    id: string;
+    name: string;
+    age: number;
+    isBestFriend: boolean;
+}
+
+const db = getFirestore(app);
+const friendsRef = db.collection("data");
+const friendsSnapshot = await friendsRef.get();
+const friends = friendsSnapshot.docs.map(doc => ({
+    id: doc.id,
+    ...doc.data(),
+})) as Friend[];
+
+let tableHeaders = Object.keys(friends[0]);
+
+const {
+    data: { user },
+} = await supabase.auth.getUser();
+
+const {
+    data: { session },
+} = await supabase.auth.getSession();
+
+if (!user || !session) {
+    return Astro.redirect("/signin");
+}
+---
+
+<table class="border-spacing-x-0 table table-auto">
+    <thead class="flex-row flex-1 items-center w-full">
+        {tableHeaders.map(header => <th class=" text-center justify-center text-black font-bold">{header}</th>)}
+    </thead>
+    <tbody>
+        {
+            friends.map(friend => (
+                <tr class="hover:bg-slate-100 cursor-default">
+                    <td>{friend.id}</td>
+                    <td class="flex justify-center">
+                        <input type="checkbox" name="isBestFriend" class="checkbox m-0 checkbox-accent border border-solid w-5 h-5" checked={friend.isBestFriend} />
+                    </td>
+                    <td>{friend.age}</td>
+                    <td>{friend.name}</td>
+                </tr>
+            ))
+        }
+    </tbody>
+</table>
+
+<style is:inline>
+    .table tbody tr td:not(:first-child) {
+        text-align: center;
+    }
+</style>
