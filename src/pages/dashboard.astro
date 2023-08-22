@@ -39,7 +39,7 @@ const friends = friendsSnapshot.docs.map(doc => ({
 })) as Friend[];
 ---
 
-<Layout title="dashboard">
+<Layout title="dashboard" animated={true}>
     <h1>Welcome {user.user_metadata.name}</h1>
     <p>We are happy to see you here.</p>
     <h3 style="margin-bottom: 2px;">SessionID Cookie:</h3>

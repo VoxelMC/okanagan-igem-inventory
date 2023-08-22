@@ -1,24 +1,27 @@
 ---
+import CommonHead from "../components/CommonHead.astro";
 import Navbar from "../components/Navbar.astro";
 import EnableHTMX from "../components/enable/EnableHTMX.astro";
 import EnableJSColor from "../components/enable/EnableJSColor.astro";
 interface Props {
     title: string;
+    animated?: boolean;
 }
 
-const { title } = Astro.props;
+const { title, animated = false } = Astro.props;
 ---
 
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <CommonHead animated={animated} />
         <meta charset="UTF-8" />
-        <meta name="description" content="Astro description" />
+        <meta name="description" content="Labcatr. An Inventory Management Solution for Institutions. Built by Trevor Fox, Satanshu Mishra, and Anastasia Bernaz." />
         <meta name="viewport" content="width=device-width" />
         <link rel="icon" type="image/x-icon" href="/favicon-light.ico" media="(prefers-color-scheme: light)" />
         <link rel="icon" type="image/x-icon" href="/favicon-dark.ico" media="(prefers-color-scheme: light)" />
         <meta name="generator" content={Astro.generator} />
-        <title>{title}</title>
+        <title>Labcatr | {title}</title>
         <EnableJSColor />
         <EnableHTMX />
     </head>

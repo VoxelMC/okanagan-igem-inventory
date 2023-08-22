@@ -1,0 +1,11 @@
+---
+import { ViewTransitions } from "astro:transitions";
+
+export interface props {
+    animated?: boolean;
+}
+
+const { animated } = Astro.props;
+---
+
+{() => (!!animated ? <ViewTransitions /> : null)}
