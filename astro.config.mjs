@@ -7,5 +7,8 @@ import prefetch from "@astrojs/prefetch";
 export default defineConfig({
     output: 'server',
     adapter: vercel(),
-    integrations: [tailwind(), prefetch()]
+    integrations: [tailwind(), prefetch()],
+    experimental: {
+        viewTransitions: true,
+    },
 });

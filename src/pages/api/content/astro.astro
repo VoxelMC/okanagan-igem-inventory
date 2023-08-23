@@ -34,8 +34,8 @@ if (!user || !session) {
 ---
 
 <table class="border-spacing-x-0 table table-auto">
-    <thead class="flex-row flex-1 items-center w-full">
-        {tableHeaders.map(header => <th class=" text-center justify-center text-black font-bold">{header}</th>)}
+    <thead class="flex-row items-center flex-1 w-full">
+        {tableHeaders.map(header => <th class=" justify-center font-bold text-center text-black">{header}</th>)}
     </thead>
     <tbody>
         {
@@ -43,7 +43,15 @@ if (!user || !session) {
                 <tr class="hover:bg-slate-100 cursor-default">
                     <td>{friend.id}</td>
                     <td class="flex justify-center">
-                        <input type="checkbox" name="isBestFriend" class="checkbox m-0 checkbox-accent border border-solid w-5 h-5" checked={friend.isBestFriend} />
+                        <input
+                            onclick="
+                            return false;
+                            "
+                            type="checkbox"
+                            name="isBestFriend"
+                            class="checkbox checkbox-accent w-5 h-5 m-0 border border-solid"
+                            checked={friend.isBestFriend}
+                        />
                     </td>
                     <td>{friend.age}</td>
                     <td>{friend.name}</td>

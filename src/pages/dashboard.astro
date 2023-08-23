@@ -2,24 +2,23 @@
 // export const prerender = true;
 import { getFirestore } from "firebase-admin/firestore";
 import { Prism } from "@astrojs/prism";
+import type { User } from "@supabase/supabase-js";
 
 import { app } from "../firebase/server";
 import supabase from "../supabase/client";
 import Layout from "../layouts/Layout.astro";
 import LocationTag from "../components/locations/LocationTag.astro";
 
-const {
-    data: { user },
-} = await supabase.auth.getUser();
-
+// GET SESSION TOKEN FROM COOKIES
 const {
     data: { session },
 } = await supabase.auth.getSession();
 
-if (!user || !session) {
+if (!session) {
     return Astro.redirect("/signin");
 }
-/* Check current session */
+
+const user = (await supabase.auth.getUser()).data.user as User;
 const sessionCookieFormatted = session?.access_token.match(/.{1,80}/g)?.join("\n") ?? "error.";
 
 /* DATABASE QUERY */
@@ -39,7 +38,7 @@ const friends = friendsSnapshot.docs.map(doc => ({
 })) as Friend[];
 ---
 
-<Layout title="dashboard">
+<Layout title="dashboard" animated={true}>
     <h1>Welcome {user.user_metadata.name}</h1>
     <p>We are happy to see you here.</p>
     <h3 style="margin-bottom: 2px;">SessionID Cookie:</h3>
