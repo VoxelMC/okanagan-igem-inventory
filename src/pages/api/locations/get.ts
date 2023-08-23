@@ -16,10 +16,6 @@ export async function post({ request }: APIContext): Promise<Response> {
 
 	let table = (await supabase.schema(uuidToDUID(targetDomainUUID)).from("domain_information").select("*"));
 
-	// console.log(table);
-	// console.log(table.data);
-
-
 	let body: LocationResponseBody = {
 		data: table.data as object[]
 	};

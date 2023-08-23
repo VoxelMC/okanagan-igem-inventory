@@ -27,19 +27,6 @@ export async function get({ request, cookies, redirect }: APIContext): Promise<R
         return new Response(JSON.stringify({ message: "[ERROR | SIGNIN]\nTOKEN FAILED VERIFICATION" }), { status: 401 });
     }
 
-    // SET COOKIE VALUE AND EXPIRATION DATE
-    let date = new Date();
-    date.setDate(date.getDate() + 5);
-
-    cookies.set("session_token", accessToken, {
-        path: "/",
-        expires: date,
-    });
-    cookies.set("refresh_token", data.session.refresh_token, {
-        path: "/",
-        expires: date,
-    });
-
     try {
         const { data: setSesData } = await supabase.auth.setSession({
             access_token: accessToken,
