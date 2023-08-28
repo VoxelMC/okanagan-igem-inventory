@@ -1,6 +1,4 @@
 import type { APIContext, APIRoute } from "astro";
-import { getFirestore } from "firebase-admin/firestore";
-import { app } from "../../../firebase/server";
 import { initElement } from "../../../util/dom";
 
 interface Friend {
@@ -10,13 +8,7 @@ interface Friend {
 	isBestFriend: boolean;
 }
 
-const db = getFirestore(app);
-const friendsRef = db.collection("data");
-const friendsSnapshot = await friendsRef.get();
-const friends = friendsSnapshot.docs.map(doc => ({
-	id: doc.id,
-	...doc.data(),
-})) as Friend[];
+const friends = [{} as Friend];
 
 export async function get(): Promise<Response> {
 	let outputElement: HTMLTableElement = initElement("table");

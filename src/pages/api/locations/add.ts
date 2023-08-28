@@ -1,6 +1,4 @@
 import type { APIRoute } from "astro";
-import { app } from "../../../firebase/server";
-import { getFirestore } from "firebase-admin/firestore";
 import { LocationType, NoneLocationType, type NewLocationSchema } from "../../../util/types/schemas";
 
 export const post: APIRoute = async ({ request, redirect }) => {
@@ -33,9 +31,6 @@ export const post: APIRoute = async ({ request, redirect }) => {
 		});
 	}
 	try {
-		const db = getFirestore(app);
-		const friendsRef = db.collection("locations");
-
 		let newLocation: NewLocationSchema = {
 			name: name,
 			description: description,
@@ -45,7 +40,7 @@ export const post: APIRoute = async ({ request, redirect }) => {
 			type: type as LocationType
 		};
 
-		await friendsRef.add(newLocation);
+		// INSERT INTO
 	} catch (error) {
 		return new Response("Something went wrong", {
 			status: 500,

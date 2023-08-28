@@ -22,8 +22,6 @@
 		"astro": "^2.9.6",
 		"daisyui": "^3.5.0",
 		"fastify": "^4.20.0",
-		"firebase": "^10.1.0",
-		"firebase-admin": "^11.10.1",
 		"jsdom": "^22.1.0",
 		"nanostores": "^0.9.3",
 		"postgres": "^3.3.5",

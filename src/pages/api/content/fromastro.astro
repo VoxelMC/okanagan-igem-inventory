@@ -1,0 +1,30 @@
+---
+import supabase from "../../../supabase/client";
+
+const {
+    data: { user },
+} = await supabase.auth.getUser();
+
+const {
+    data: { session },
+} = await supabase.auth.getSession();
+
+const tableHeaders = [""];
+
+if (!user || !session) {
+    return Astro.redirect("/signin");
+}
+---
+
+<table class="border-spacing-x-0 table table-auto">
+    <thead class="flex-row items-center flex-1 w-full">
+        {tableHeaders.map(header => <th class=" justify-center font-bold text-center text-black">{header}</th>)}
+    </thead>
+    <tbody></tbody>
+</table>
+
+<style is:inline>
+    .table tbody tr td:not(:first-child) {
+        text-align: center;
+    }
+</style>

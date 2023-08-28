@@ -1,4 +1,13 @@
-export type NewLocationSchema = Omit<LocationSchema, "id">;
+export type Prettify<T> = {
+    [K in keyof T]: T[K];
+} & {};
+
+export type NewLocationSchema = Prettify<
+    Omit<LocationSchema, "id" | "type">
+    & {
+        type: ILocationType;
+    }
+>;
 
 export type LocationSchema = {
     id: string;
