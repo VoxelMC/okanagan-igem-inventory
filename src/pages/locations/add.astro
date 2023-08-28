@@ -5,21 +5,13 @@ import LocationsFormTextArea from "../../components/locations/LocationsFormTextA
 import ColorPicker from "../../components/forms/ColorPicker.astro";
 import LocationTag from "../../components/locations/LocationTag.astro";
 
-import { app } from "../../firebase/server";
-import { getFirestore } from "firebase-admin/firestore";
-import { LocationSchema, LocationType } from "../../util/types/schemas";
+// import { LocationSchema, LocationType } from "../../util/types/schemas";
 
-const db = getFirestore(app);
-const dbReference = db.collection("locations");
-const snapshot = await dbReference.get();
-const locations = snapshot.docs.map(doc => ({
-    id: doc.id,
-    ...doc.data(),
-})) as LocationSchema[];
+// const locationOrder = Object.values(LocationType);
 
-const locationOrder = Object.values(LocationType);
+// const sortedLocations = locations.sort((a, b) => locationOrder.indexOf(a.type) - locationOrder.indexOf(b.type));
 
-const sortedLocations = locations.sort((a, b) => locationOrder.indexOf(a.type) - locationOrder.indexOf(b.type));
+// TODO: Add SUPABASE.
 ---
 
 <Layout title="Add A Location">

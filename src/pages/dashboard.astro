@@ -1,10 +1,8 @@
 ---
 // export const prerender = true;
-import { getFirestore } from "firebase-admin/firestore";
 import { Prism } from "@astrojs/prism";
 import type { User } from "@supabase/supabase-js";
 
-import { app } from "../firebase/server";
 import supabase from "../supabase/client";
 import Layout from "../layouts/Layout.astro";
 import LocationTag from "../components/locations/LocationTag.astro";
@@ -28,14 +26,6 @@ interface Friend {
     age: number;
     isBestFriend: boolean;
 }
-
-const db = getFirestore(app);
-const friendsRef = db.collection("data");
-const friendsSnapshot = await friendsRef.get();
-const friends = friendsSnapshot.docs.map(doc => ({
-    id: doc.id,
-    ...doc.data(),
-})) as Friend[];
 ---
 
 <Layout title="dashboard" animated={true}>
@@ -54,18 +44,4 @@ const friends = friendsSnapshot.docs.map(doc => ({
     <br />
 
     <LocationTag borderColor="#FFFF00" tagColor="#e7689c">SnowFlake</LocationTag>
-
-    <h1>Friends</h1>
-    <ul>
-        {
-            friends.map(friend => (
-                <li>
-                    <a href={`/data/${friend.id}`}>{friend.name}</a>
-                    <span>({friend.age})</span>
-                    <strong>{friend.isBestFriend ? "Bestie" : "Friend"}</strong>
-                    <a href={`/edit/${friend.id}`}>Edit</a>
-                </li>
-            ))
-        }
-    </ul>
 </Layout>
