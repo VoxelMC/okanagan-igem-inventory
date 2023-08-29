@@ -1,13 +1,15 @@
 {
-	"extends": "astro/tsconfigs/strict",
-	"compilerOptions": {
-		"plugins": [
-			{
-				"name": "@astrojs/ts-plugin"
-			},
-		],
-		"types": [
-			"astro/env"
-		]
-	}
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "plugins": [
+      {
+        "name": "@astrojs/ts-plugin"
+      }
+    ],
+    "types": [
+      "astro/env"
+    ],
+    "jsx": "react-jsx",
+    "jsxImportSource": "react"
+  }
 }
