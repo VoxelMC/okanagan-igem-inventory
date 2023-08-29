@@ -1,35 +1,103 @@
 Locations::
-	Location Owner is a Domain Contact
-	Up to 2 more contacts
-	Shelves, Cupboards, Cabinets (Flammable, Acid/Base, Biohazard), Bucket Animal (Specimens), -80
-	Tree View 
+    Location Owner is a Domain Contact
+    Up to 2 more contacts
+    Shelves, Cupboards, Cabinets (Flammable, Acid/Base, Biohazard), Bucket Animal (Specimens), -80
+    Tree View 
 
 Domain Contacts::
-	Every account in a domain is a domain contact, and can make more for people who are not in the domain.
-	Non-linked contacts are given a key to claim the contact when they create an account.
+    Every account in a domain is a domain contact, and can make more for people who are not in the domain.
+    Non-linked contacts are given a key to claim the contact when they create an account.
 
 Supplies::
-	
+    
 
 Equipment::
-	Lock behind a Chain of Custody so it cannot be lost track of
-	Checkout Item before learning where it is
-	
-	# in seperate locations
-	Generate a QR code printout to link to the database entry to find where other of this item type are.
-	
-	Transaction system - only know where what you NEED is after confirming the transaction
-		Length of borrow
-		New location
-		User (automatically)
+    Lock behind a Chain of Custody so it cannot be lost track of
+    Checkout Item before learning where it is
+    
+    # in seperate locations
+    Generate a QR code printout to link to the database entry to find where other of this item type are.
+    
+    Transaction system - only know where what you NEED is after confirming the transaction
+        Length of borrow
+        New location
+        User (automatically)
 
-	Borrowing system - lock down some equipment to not be taken or even shown.
-		Make an unavailable status for repair situations, etc.
-		Permission required status
+    Borrowing system - lock down some equipment to not be taken or even shown.
+        Make an unavailable status for repair situations, etc.
+        Permission required status
 
 Maximize accountability of the borrower
 
 
 
 Potentially use SCI 142 as a live model.
-	Can get access from Tristyn.
+    Can get access from Tristyn.
+
+
+
+
+
+| ==================== Page Structure ==================== |
+| 				    -=+=- OVERVIEW -=+=-				   |
+| 														   |
+| 1.  		 Auth 	|> 	/signin							   |
+| 						/signout						   |
+| 														   |
+| 2.		 User	|> 	/dashboard						   |
+| 						/account						   |
+| 														   |
+| 3.  Institution 	|> 	/institution/[...slug]			   |
+|						/institution/[...slug]/edit		   |
+| 						/institution/[...slug]/manage	   |
+| 														   |
+| 4.  	   Domain	|> 	/domain							   |
+|						/domain/edit					   |
+|						/domain/inventory				   |
+|   					/domain/library					   |
+| 														   |
+| ======================================================== |
+
+Auth::
+    /signin =>
+        -> Sign In Form.
+        ==> Redirect to Dashboard on Sign In.
+    /signout =>
+        -> Small landing page after signing out.
+        -> Buttons link to / and /signin.
+
+User::
+    /dashboard
+        -> Displays joined active domains, announcements, quick actions, etc.
+        ==> Access to /domain, sets state with URI query params.
+    /account
+        -> Context for the user about their account.
+        -> Displays all user detail.
+
+Institution::
+    /institution/[...slug]
+        -> Provides information about a given institution [...slug].
+        -> Edit button available for institution administrators ==> /institution/[..slug]/edit.
+        -> Slug will either be a verbose name or uuid. However, it will probably be name abbreviated.
+    /institution/[...slub]/edit
+        -> Allows the administrator to edit institution details.
+    /institution/[...slub]/manage
+        -> Allows the administrator to manage domains (create or edit) within the given institution [...slug].
+
+Domain::
+    /domain
+        -> Domain dashboard page.
+        -> Edit button available for domain administrators ==> /domain/edit
+    /domain/edit
+        -> Allows an administrator to edit domain details.
+    /domain/manage
+        -> Allows an administrator to manage users (invite, remove) within the given domain.
+    /domain/inventory
+        -> Inventory View
+            -> Tabbed Panels::
+                OVERVIEW
+                ITEMS
+                EQUIPMENT
+                SHARED
+    /domain/library
+        -> Management for all of the domain assets such as Locations, Tags, Subtypes, etc. (Any User-defined Data)
