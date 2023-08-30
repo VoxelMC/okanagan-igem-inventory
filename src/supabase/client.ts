@@ -1,16 +1,28 @@
 import * as sb from '@supabase/supabase-js';
 import type { Database } from "./database.types";
 
-const customStorageAdapter: sb.SupportedStorage = {
-	getItem: (key) => {
-		return globalThis.localStorage.getItem(key);
+import { persistentMap } from '@nanostores/persistent';
+import type { WritableAtom } from 'nanostores';
+
+export const atoms: Map<string, WritableAtom<string>> = new Map();
+
+export const atomMap = persistentMap<{ [K: string]: any; }>(
+	'atoms',
+	{},
+	{
+		encode: JSON.parse,
+		decode: JSON.stringify
+	}
+);
+
+const nanostoresAdapter: sb.SupportedStorage = {
+	getItem: (key: string): string | null => atomMap.get()[key as keyof object],
+	setItem: (key: string, value: string): void => {
+		atomMap.setKey(key, value);
 	},
-	setItem: (key, value) => {
-		globalThis.localStorage.setItem(key, value);
-	},
-	removeItem: (key) => {
-		globalThis.localStorage.removeItem(key);
-	},
+	removeItem: (key: string): void => {
+		atomMap.setKey(key, null);
+	}
 };
 
 const supabase: sb.SupabaseClient<any, "public", any> = sb.createClient<Database>(
@@ -20,7 +32,7 @@ const supabase: sb.SupabaseClient<any, "public", any> = sb.createClient<Database
 		auth: {
 			detectSessionInUrl: true,
 			flowType: 'pkce',
-			storage: customStorageAdapter
+			storage: nanostoresAdapter
 		}
 	}
 );

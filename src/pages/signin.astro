@@ -3,10 +3,11 @@ import Layout from "../layouts/Layout.astro";
 import supabase from "../supabase/client";
 
 // GET SESSION TOKEN FROM COOKIES
-const { data: sessionToken } = await supabase.auth.getSession();
+const { data: sessionToken, error } = await supabase.auth.getSession();
+console.log(sessionToken, "ASDASDlk", error);
 
 // REDIRECT TO DASHBOARD IF ALREADY LOGGED IN
-if (!sessionToken) {
+if (sessionToken.session !== null) {
     return Astro.redirect("/dashboard");
 }
 ---
