@@ -6,7 +6,7 @@ import type { WritableAtom } from 'nanostores';
 
 export const atoms: Map<string, WritableAtom<string>> = new Map();
 
-export const atomMap = persistentMap<{ [K: string]: any; }>(
+export const $atomMap = persistentMap<{ [K: string]: any; }>(
 	'atoms',
 	{},
 	{
@@ -16,13 +16,9 @@ export const atomMap = persistentMap<{ [K: string]: any; }>(
 );
 
 const nanostoresAdapter: sb.SupportedStorage = {
-	getItem: (key: string): string | null => atomMap.get()[key as keyof object],
-	setItem: (key: string, value: string): void => {
-		atomMap.setKey(key, value);
-	},
-	removeItem: (key: string): void => {
-		atomMap.setKey(key, null);
-	}
+	getItem: (key: string): string | null => $atomMap.get()[key as keyof object],
+	setItem: (key: string, value: string): void => $atomMap.setKey(key, value),
+	removeItem: (key: string): void => $atomMap.setKey(key, null),
 };
 
 const supabase: sb.SupabaseClient<any, "public", any> = sb.createClient<Database>(
