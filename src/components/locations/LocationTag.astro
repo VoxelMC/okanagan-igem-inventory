@@ -1,5 +1,5 @@
 ---
-import type { LocationType } from "../../types/schemas";
+import type { LocationType } from "../../util/types/schemas";
 export interface Props {
     tagColor: string;
     class?: string;
@@ -20,7 +20,7 @@ const { tagColor, class: addclasses = "", borderColor, type } = Astro.props;
     }
 </style>
 
-<div class:list={["w-fit divide-solid flex h-8 overflow-hidden divide-x", new Set([addclasses])]}>
+<div class:list={["w-fit divide-solid flex h-8 overflow-hidden divide-x", [addclasses]]}>
     <div class="bg-sky-400 flex justify-center w-8 h-8 join-item">
         <span class="material-symbols-outlined" style="color: white;">ac_unit</span>
     </div>

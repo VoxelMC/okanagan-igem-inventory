@@ -8,9 +8,8 @@ import react from "@astrojs/react";
 // https://astro.build/config
 export default defineConfig({
   output: 'server',
-  adapter: vercel(),
+  adapter: vercel(
+
+  ),
   integrations: [tailwind(), prefetch(), react()],
-  experimental: {
-    viewTransitions: true
-  }
 });

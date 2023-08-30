@@ -7,10 +7,10 @@ export interface Props {
     placeholder?: string;
 }
 
-const { type, name, id, class: addclasses = "", placeholder } = Astro.props;
+const { type, name, id, class: classList = "", placeholder } = Astro.props;
 ---
 
-<section class:list={["form-control", new Set([addclasses])]}>
+<section class:list={["form-control", [classList]]}>
     <label for="name" class="label text-primary pb-1">
         <span class="label-text"><b><slot /></b></span>
     </label>

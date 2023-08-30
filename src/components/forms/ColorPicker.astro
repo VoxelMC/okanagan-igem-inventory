@@ -4,13 +4,13 @@ export interface Props {
     class?: string;
 }
 
-const { id, class: addclasses = "" } = Astro.props;
+const { id, class: classList = "" } = Astro.props;
 const randomColor = Math.floor(Math.random() * 0xfffff * 1000000)
     .toString(16)
     .slice(0, 6);
 ---
 
-<section class:list={["form-control items-center justify-center", new Set([addclasses])]}>
+<section class:list={["form-control items-center justify-center", [classList]]}>
     <label for="color-selector" class="label text-primary pb-1">
         <span class="label-text"><b>Color</b></span>
     </label>

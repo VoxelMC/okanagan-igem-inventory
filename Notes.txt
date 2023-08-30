@@ -41,17 +41,17 @@ Potentially use SCI 142 as a live model.
 | ==================== Page Structure ==================== |
 | 				    -=+=- OVERVIEW -=+=-				   |
 | 														   |
-| 1.  		 Auth 	|> 	/signin							   |
+| 1..........Auth 	|> 	/signin							   |
 | 						/signout						   |
 | 														   |
-| 2.		 User	|> 	/dashboard						   |
+| 2..........User	|> 	/dashboard						   |
 | 						/account						   |
 | 														   |
-| 3.  Institution 	|> 	/institution/[...slug]			   |
+| 3...Institution 	|> 	/institution/[...slug]			   |
 |						/institution/[...slug]/edit		   |
 | 						/institution/[...slug]/manage	   |
 | 														   |
-| 4.  	   Domain	|> 	/domain							   |
+| 4........Domain	|> 	/domain							   |
 |						/domain/edit					   |
 |						/domain/inventory				   |
 |   					/domain/library					   |
