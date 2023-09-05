@@ -44,15 +44,16 @@ Potentially use SCI 142 as a live model.
 | 1..........Auth 	|> 	/signin							   |
 | 						/signout						   |
 | 														   |
-| 2..........User	|> 	/dashboard						   |
-| 						/account						   |
+| 2..........User	|> 	/me/        					   |
+| 						/me/dashboard					   |
 | 														   |
-| 3...Institution 	|> 	/institution/[...slug]			   |
-|						/institution/[...slug]/edit		   |
-| 						/institution/[...slug]/manage	   |
+| 3...Institution 	|> 	/institution/[iuid]   			   |
+|						/institution/[iuid]/edit		   |
+| 						/institution/[iuid]/manage	       |
 | 														   |
 | 4........Domain	|> 	/domain							   |
 |						/domain/edit					   |
+|						/domain/manage					   |
 |						/domain/inventory				   |
 |   					/domain/library					   |
 | 														   |
@@ -67,22 +68,22 @@ Auth::
         -> Buttons link to / and /signin.
 
 User::
-    /dashboard
-        -> Displays joined active domains, announcements, quick actions, etc.
-        ==> Access to /domain, sets state with URI query params.
-    /account
+    /me
         -> Context for the user about their account.
         -> Displays all user detail.
+    /me/dashboard
+        -> Displays joined active domains, announcements, quick actions, etc.
+        ==> Access to /domain, sets state with URI query params.
 
 Institution::
-    /institution/[...slug]
-        -> Provides information about a given institution [...slug].
-        -> Edit button available for institution administrators ==> /institution/[..slug]/edit.
-        -> Slug will either be a verbose name or uuid. However, it will probably be name abbreviated.
-    /institution/[...slub]/edit
+    /institution/[iuid]
+        -> Provides information about a given institution [iuid].
+        -> Edit button available for institution administrators ==> /institution/[iuid]/edit.
+        -> iuid will either be a verbose name or uuid. However, it will probably be name abbreviated.
+    /institution/[iuid]/edit
         -> Allows the administrator to edit institution details.
-    /institution/[...slub]/manage
-        -> Allows the administrator to manage domains (create or edit) within the given institution [...slug].
+    /institution/[iuid]/manage
+        -> Allows the administrator to manage domains (create or edit) within the given institution [iuid].
 
 Domain::
     /domain
