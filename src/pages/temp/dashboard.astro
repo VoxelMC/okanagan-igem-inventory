@@ -3,8 +3,8 @@
 import { Prism } from "@astrojs/prism";
 import type { User } from "@supabase/supabase-js";
 
-import supabase from "../../supabase/database.client";
-import Layout from "../../layouts/Layout.astro";
+import supabase from "database:client";
+import Layout from "@layouts/Layout.astro";
 import LocationTag from "../../components/locations/LocationTag.astro";
 
 // GET SESSION TOKEN FROM COOKIES
@@ -45,4 +45,3 @@ interface Friend {
 
     <LocationTag borderColor="#FFFF00" tagColor="#e7689c">SnowFlake</LocationTag>
 </Layout>
-../../supabase/database.client

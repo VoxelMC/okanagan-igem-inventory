@@ -24,6 +24,12 @@
       ],
       "database:client": [
         "supabase/database.client"
+      ],
+      "@layouts/*": [
+        "layouts/*"
+      ],
+      "@components/*": [
+        "components/*"
       ]
     }
   }
