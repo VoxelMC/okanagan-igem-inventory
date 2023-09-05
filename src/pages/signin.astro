@@ -4,7 +4,6 @@ import supabase from "../supabase/database.client";
 
 // GET SESSION TOKEN FROM COOKIES
 const { data: sessionToken, error } = await supabase.auth.getSession();
-console.log(sessionToken, "ASDASDlk", error);
 
 // REDIRECT TO DASHBOARD IF ALREADY LOGGED IN
 if (sessionToken.session !== null) {
@@ -70,7 +69,6 @@ if (sessionToken.session !== null) {
 
         // REDIRECT TO DASHBOARD
         if (response.redirected) {
-            console.log(response.url);
             window.location.assign(response.url);
         }
     });
