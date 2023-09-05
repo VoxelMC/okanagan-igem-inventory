@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import supabase from "../supabase/client";
+import supabase from "../supabase/database.client";
 
 // GET SESSION TOKEN FROM COOKIES
 const { data: sessionToken } = await supabase.auth.getSession();

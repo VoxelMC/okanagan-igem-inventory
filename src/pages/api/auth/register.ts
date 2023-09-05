@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import supabase from "../../../supabase/client";
+import supabase from "../../../supabase/database.client";
 import { getRoleUUIDFromToken, isRoleTokenValid } from "../../../supabase/database.functions";
 
 export const post: APIRoute = async ({ request, redirect }) => {

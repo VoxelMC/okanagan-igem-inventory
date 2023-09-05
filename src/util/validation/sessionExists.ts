@@ -1,4 +1,4 @@
-import supabase from "../../supabase/client";
+import supabase from "../../supabase/database.client";
 
 export default async function sessionExists(sessionToken: string): Promise<boolean> {
     // CHECK IF IT IS AN ACTIVE SESSION TOKEN

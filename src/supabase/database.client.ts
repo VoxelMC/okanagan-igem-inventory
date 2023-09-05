@@ -1,10 +1,10 @@
+"database:client";
+
 import * as sb from '@supabase/supabase-js';
 import type { Database } from "./database.types";
 
 import { persistentMap } from '@nanostores/persistent';
-import type { WritableAtom } from 'nanostores';
-
-export const atoms: Map<string, WritableAtom<string>> = new Map();
+import postgres from 'postgres';
 
 export const $atomMap = persistentMap<{ [K: string]: any; }>(
 	'atoms',
@@ -32,5 +32,12 @@ const supabase: sb.SupabaseClient<any, "public", any> = sb.createClient<Database
 		}
 	}
 );
+
+export const sql = postgres(import.meta.env.SUPABASE_POSTGRES_CONNECTION_STRING, {
+	transform: {
+		...postgres.camel,
+		undefined: null
+	}
+});
 
 export default supabase;

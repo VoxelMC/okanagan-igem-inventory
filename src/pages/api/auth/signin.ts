@@ -1,5 +1,5 @@
 import type { APIContext, APIRoute } from "astro";
-import supabase from "../../../supabase/client";
+import supabase from "../../../supabase/database.client";
 
 export async function get({ request, cookies, redirect }: APIContext): Promise<Response> {
     const { data, error } = await supabase.auth.signInWithPassword({

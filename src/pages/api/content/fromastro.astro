@@ -1,5 +1,5 @@
 ---
-import supabase from "../../../supabase/client";
+import supabase from "../../../supabase/database.client";
 
 const {
     data: { user },
@@ -28,3 +28,4 @@ if (!user || !session) {
         text-align: center;
     }
 </style>
+../../../supabase/database.client

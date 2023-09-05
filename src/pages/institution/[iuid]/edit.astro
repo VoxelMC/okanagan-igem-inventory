@@ -1,0 +1,9 @@
+---
+import { getInstitutions } from "database:functions";
+const { iuid } = Astro.params;
+
+const institution = await getInstitutions(iuid);
+if (!institution.length) Astro.redirect("/404")
+
+
+---

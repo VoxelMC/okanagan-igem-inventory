@@ -1,5 +1,5 @@
 import type { APIContext } from "astro";
-import supabase from "../../../supabase/client";
+import supabase from "../../../supabase/database.client";
 import type { LocationSchema } from "../../../util/types/schemas";
 import { uuidToDUID } from "../../../supabase/database.functions";
 
