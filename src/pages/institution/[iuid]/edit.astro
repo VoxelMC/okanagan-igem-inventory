@@ -1,9 +1,10 @@
 ---
 import { getInstitutions } from "database:functions";
+import type { Institution } from "database:tables";
 const { iuid } = Astro.params;
 
-const institution = await getInstitutions(iuid);
+const institution = (await getInstitutions(iuid));
 if (!institution.length) Astro.redirect("/404")
 
-
+const currentInstitution: Institution = institution[0];
 ---
