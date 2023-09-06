@@ -6,13 +6,12 @@ import Layout from "@layouts/Layout.astro";
     <section class="my-28 container p-10 mx-auto overflow-y-scroll prose text-black bg-white rounded-lg">
         <h1 class="text-black">Data Table</h1>
         <p>Here is where data will be displayed in a table.</p>
-        <a hx-get="/api/content/astro" hx-swap="outerHTML" hx-trigger="load"></a>
 
         <input name="target" id="include" value="Test" />
         <!-- <div hx-post="/api/locations/get" hx-include="[name='target']" hx-trigger="load, click from:#submitter">
             <div class="fill-black flex justify-center"><img src="loading.svg" class="htmx-indicator" alt="Loading..." /></div>
         </div> -->
-        <div hx-get="/api/locations/getbyastro" hx-include="[name='target']" hx-swap="innerHTMl" hx-trigger="load, click from:#submitter">
+        <div hx-post="/api/locations/getbyastro" hx-include="[name='target']" hx-swap="innerHTMl" hx-trigger="load, click from:#submitter" hx-select=".hx-target">
             <div class="fill-black flex justify-center"><img src="loading.svg" class="htmx-indicator" alt="Loading..." /></div>
         </div>
         <button id="submitter">POST!</button>

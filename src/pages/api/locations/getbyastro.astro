@@ -1,7 +1,7 @@
 ---
-import supabase from "../../../supabase/database.client";
+import supabase from "database:client";
 import type { LocationSchema } from "../../../util/types/schemas";
-import { uuidToDUID } from "../../../supabase/database.functions";
+import { uuidToDUID } from "database:functions";
 
 type LocationResponseBody = {
     data: object[];
@@ -11,37 +11,41 @@ const { data, error } = await supabase.auth.getSession();
 
 if (error) return new Response(JSON.stringify({ message: "This request is not authorized" }), { status: 401 });
 
-const targetDomainUUID = Astro.url.searchParams.get("target") ?? "";
+// console.log((await Astro.request.formData()).get("target"));
+
+const targetDomainUUID = (await Astro.request.formData()).get("target")?.toString() ?? "";
 let table = await supabase.schema(uuidToDUID(targetDomainUUID)).from("domain_information").select("*");
+
 // let table = await supabase.from("roles").select("*");
 
 const responseData = (table.data as []) ?? [];
 ---
-
-<table class="border-spacing-x-0 table table-auto">
-    <thead class="flex-row items-center flex-1 w-full">
-        <th class="justify-center font-bold text-center text-black">Domain ID</th>
-        <th class="justify-center font-bold text-center text-black">Institution ID</th>
-        <th class="justify-center font-bold text-center text-black">Name</th>
-        <th class="justify-center font-bold text-center text-black">Description</th>
-    </thead>
-    <tbody>
-        {
-            responseData.map(data => (
-                <tr class="hover:bg-slate-100 cursor-default">
-                    <td>{data["domain_id"]}</td>
-                    <td>{data["institution_id"]}</td>
-                    <td>{data["name"]}</td>
-                    <td>{data["description"]}</td>
-                </tr>
-            ))
+<div class="hx-target">
+    <h1>{targetDomainUUID}</h1>
+    <table class="border-spacing-x-0 table table-auto">
+        <thead class="flex-row items-center flex-1 w-full">
+            <th class="justify-center font-bold text-center text-black">Domain ID</th>
+            <th class="justify-center font-bold text-center text-black">Institution ID</th>
+            <th class="justify-center font-bold text-center text-black">Name</th>
+            <th class="justify-center font-bold text-center text-black">Description</th>
+        </thead>
+        <tbody>
+            {
+                responseData.map(data => (
+                    <tr class="hover:bg-slate-100 cursor-default">
+                        <td>{data["domain_id"]}</td>
+                        <td>{data["institution_id"]}</td>
+                        <td>{data["name"]}</td>
+                        <td>{data["description"]}</td>
+                    </tr>
+                ))
+            }
+        </tbody>
+    </table>
+    
+    <style is:inline>
+        .table tbody tr td:not(:first-child) {
+            text-align: center;
         }
-    </tbody>
-</table>
-
-<style is:inline>
-    .table tbody tr td:not(:first-child) {
-        text-align: center;
-    }
-</style>
-../../../supabase/database.client
+    </style>
+</div>
