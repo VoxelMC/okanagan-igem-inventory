@@ -8,7 +8,7 @@ interface Friend {
 	isBestFriend: boolean;
 }
 
-const friends = [{} as Friend];
+const friends = [{ id: "1", name: "test", age: 100, isBestFriend: false } as Friend];
 
 export async function get(): Promise<Response> {
 	let outputElement: HTMLTableElement = initElement("table");
@@ -35,7 +35,7 @@ export async function get(): Promise<Response> {
 	return new Response(outputElement.innerHTML, { status: 200 });
 }
 
-export async function post({ request }: APIContext<Record<string, any>>): Promise<Response> {
-	let data = (await request.formData()).get("ASDF") as FormDataEntryValue;
-	return new Response(`<b>${data}</b>`);
+export async function POST({ request }: APIContext<Record<string, any>>): Promise<Response> {
+	let data = (await request.formData()).get("target") as FormDataEntryValue;
+	return new Response(`<p><b>${data.toString()}</b></p>`, { headers: { "Content-Type": "text/html; charset=utf-8" } });
 }

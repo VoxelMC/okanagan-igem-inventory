@@ -16,10 +16,10 @@
       "database:functions": [
         "supabase/database.functions"
       ],
-      "database:types": [
-        "supabase/database.types"
-      ],
       "database:tables": [
+        "util/types/suparows"
+      ],
+      "database:types": [
         "util/types/suparesponse"
       ],
       "database:client": [

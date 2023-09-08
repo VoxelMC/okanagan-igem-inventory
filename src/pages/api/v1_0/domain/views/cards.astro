@@ -1,0 +1,16 @@
+---
+import DomainDisplayPanel from "@components/dashboard/DomainDisplayPanel.astro";
+import { sql } from "database:client";
+import { getIUIDFromUUID } from "database:functions";
+import type { Table } from "database:tables";
+import type { Domain } from "database:types";
+
+if (Astro.request.method.toLowerCase() != "get") return new Response("Method Not Allowed", { status: 405 });
+
+const uuid = Astro.url.searchParams.get("token");
+const iuid: string = getIUIDFromUUID(Astro.url.searchParams.get("iuid")!.toString());
+
+const domains: Table<Domain> = (await sql`SELECT * FROM ${sql(iuid + ".domain")} WHERE id = ${uuid}`) as Table<Domain>;
+---
+
+<DomainDisplayPanel name="" description="" />

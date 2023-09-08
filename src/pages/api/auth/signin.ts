@@ -1,7 +1,7 @@
 import type { APIContext, APIRoute } from "astro";
 import supabase from "../../../supabase/database.client";
 
-export async function get({ request, cookies, redirect }: APIContext): Promise<Response> {
+export async function GET({ request, redirect }: APIContext): Promise<Response> {
     const { data, error } = await supabase.auth.signInWithPassword({
         email: request.headers.get("email") || "",
         password: request.headers.get("password") || "",
@@ -33,5 +33,5 @@ export async function get({ request, cookies, redirect }: APIContext): Promise<R
             refresh_token: data.session.refresh_token,
         });
     } catch (error) { }
-    return redirect("/dashboard");
+    return redirect("/me/dashboard");
 }

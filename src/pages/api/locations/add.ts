@@ -46,5 +46,5 @@ export const post: APIRoute = async ({ request, redirect }) => {
 			status: 500,
 		});
 	}
-	return redirect("/dashboard");
+	return redirect("/me/dashboard");
 };

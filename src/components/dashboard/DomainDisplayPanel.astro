@@ -1,0 +1,14 @@
+---
+export interface Props {
+    name: string;
+    description: string;
+}
+
+const { name, description } = Astro.props;
+---
+
+<div class="hx-target px-4 rounded-lg border border-solid border-lime-400 w-72 aspect-[8/5] bg-neutral mr-4 mb-4">
+    <h2 class="mb-1">{name || "Domain-Name"}</h2>
+    <div class="divider my-0"></div>
+    <p class="mt-0">{description || "Placeholder"}</p>
+</div>

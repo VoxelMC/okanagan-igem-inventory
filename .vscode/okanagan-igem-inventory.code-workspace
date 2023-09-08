@@ -79,6 +79,8 @@
 					}
 				]
 			}
-		}
+		},
+		"vim.easymotionDimBackground": false,
+		"vim.surround": false
 	}
 }

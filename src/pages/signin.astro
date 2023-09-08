@@ -7,7 +7,7 @@ const { data: sessionToken, error } = await supabase.auth.getSession();
 
 // REDIRECT TO DASHBOARD IF ALREADY LOGGED IN
 if (sessionToken.session !== null) {
-    return Astro.redirect("/dashboard");
+    return Astro.redirect("/me/dashboard");
 }
 ---
 

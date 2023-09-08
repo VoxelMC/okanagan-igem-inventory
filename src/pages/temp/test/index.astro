@@ -11,7 +11,8 @@ import Layout from "@layouts/Layout.astro";
         <!-- <div hx-post="/api/locations/get" hx-include="[name='target']" hx-trigger="load, click from:#submitter">
             <div class="fill-black flex justify-center"><img src="loading.svg" class="htmx-indicator" alt="Loading..." /></div>
         </div> -->
-        <div hx-post="/api/locations/getbyastro" hx-include="[name='target']" hx-swap="innerHTMl" hx-trigger="load, click from:#submitter" hx-select=".hx-target">
+        <!-- <div hx-post="/api/content/test" hx-include="[name='target']" hx-swap="innerHTML" hx-trigger="load, click from:#submitter" hx-select=".hx-target"> -->
+        <div hx-post="/api/locations/getbyastro" hx-include="[name='target']" hx-swap="innerHTML" hx-trigger="load, click from:#submitter">
             <div class="fill-black flex justify-center"><img src="loading.svg" class="htmx-indicator" alt="Loading..." /></div>
         </div>
         <button id="submitter">POST!</button>

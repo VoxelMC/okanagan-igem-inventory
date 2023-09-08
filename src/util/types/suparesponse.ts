@@ -1,10 +1,6 @@
-"database:tables";
+"database:types";
 
-export class Table<T> extends Array<T> {
-	constructor() {
-		super();
-	}
-}
+import type { Table } from "database:tables";
 
 //////////////////
 export type PublicTable<

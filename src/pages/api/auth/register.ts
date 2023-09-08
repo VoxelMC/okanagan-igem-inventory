@@ -2,7 +2,7 @@ import type { APIRoute } from "astro";
 import supabase from "../../../supabase/database.client";
 import { getRoleUUIDFromToken, isRoleTokenValid } from "../../../supabase/database.functions";
 
-export const post: APIRoute = async ({ request, redirect }) => {
+export const POST: APIRoute = async ({ request, redirect }) => {
     // GET FORM DATA
     const formData = await request.formData();
     const email = formData.get("email")?.toString();

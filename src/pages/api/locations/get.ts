@@ -7,7 +7,7 @@ type LocationResponseBody = {
 	data: object[],
 };
 
-export async function post({ request }: APIContext): Promise<Response> {
+export async function POST({ request }: APIContext): Promise<Response> {
 	const { data, error } = await supabase.auth.getSession();
 
 	if (error) return new Response(JSON.stringify({ message: "This request is not authorized" }), { status: 401 });
@@ -21,5 +21,5 @@ export async function post({ request }: APIContext): Promise<Response> {
 	};
 
 
-	return new Response(JSON.stringify(body), { status: 200 });
+	return new Response(JSON.stringify(targetDomainUUID), { status: 200 });
 };
