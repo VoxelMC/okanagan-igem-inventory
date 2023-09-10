@@ -1,16 +1,18 @@
 ---
 import DomainDisplayPanel from "@components/dashboard/DomainDisplayPanel.astro";
-import { sql } from "database:client";
-import { getIUIDFromUUID } from "database:functions";
-import type { Table } from "database:tables";
-import type { Domain } from "database:types";
+import { getEmployeeDomainsFromUUID, getIUIDFromUUID } from "database:functions";
 
 if (Astro.request.method.toLowerCase() != "get") return new Response("Method Not Allowed", { status: 405 });
 
-const uuid = Astro.url.searchParams.get("token");
-const iuid: string = getIUIDFromUUID(Astro.url.searchParams.get("iuid")!.toString());
+const uuid = Astro.url.searchParams.get("token")!.toString();
+const institutionID = Astro.url.searchParams.get("iuid")!.toString();
 
-const domains: Table<Domain> = (await sql`SELECT * FROM ${sql(iuid + ".domain")} WHERE id = ${uuid}`) as Table<Domain>;
+const domainList = await getEmployeeDomainsFromUUID(institutionID, uuid);
+console.log("here", domainList);
 ---
 
-<DomainDisplayPanel name="" description="" />
+{
+    domainList.domains.map(domain => {
+        return <DomainDisplayPanel name={domain.name} description={domain.description} domainId={domain.id} />;
+    })
+}
