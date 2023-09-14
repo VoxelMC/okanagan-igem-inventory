@@ -27,6 +27,7 @@
 		"astro": "^3.0.12",
 		"daisyui": "^3.7.3",
 		"fastify": "^4.20.0",
+		"htmx.org": "^1.9.5",
 		"jsdom": "^22.1.0",
 		"nanostores": "^0.9.3",
 		"postgres": "^3.3.5",
