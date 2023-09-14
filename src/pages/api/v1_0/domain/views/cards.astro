@@ -8,7 +8,6 @@ const uuid = Astro.url.searchParams.get("token")!.toString();
 const institutionID = Astro.url.searchParams.get("iuid")!.toString();
 
 const domainList = await getEmployeeDomainsFromUUID(institutionID, uuid);
-console.log("here", domainList);
 ---
 
 {

@@ -10,7 +10,7 @@ const { name, description, domainId } = Astro.props;
 ---
 
 <a href={"/domain/" + domainId} style="all: unset;">
-    <div class="mr-4 mb-4 hx-target px-4 rounded-lg border border-solid border-lime-400 w-72 aspect-[8/5] bg-neutral cursor-pointer">
+    <div class="mr-4 mb-4 hx-target px-4 rounded-lg border border-solid w-72 aspect-[8/5] bg-neutral cursor-pointer">
         <h2 class="mb-1">{name || "Domain-Name"}</h2>
         <div class="divider my-0"></div>
         <p class="mt-0">{description || "Placeholder"}</p>

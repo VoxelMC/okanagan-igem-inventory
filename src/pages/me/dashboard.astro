@@ -3,11 +3,13 @@
 import { Prism } from "@astrojs/prism";
 import type { User } from "@supabase/supabase-js";
 
-import supabase from "database:client";
 import Layout from "@layouts/Layout.astro";
-import LocationTag from "../../components/locations/LocationTag.astro";
+
+import LocationTag from "@components/locations/LocationTag.astro";
 import DomainDisplayPanel from "@components/dashboard/DomainDisplayPanel.astro";
-import { employeeFromUUID, getInstitutions } from "database:functions";
+
+import supabase from "database:client";
+import { employeeFromUUID, getEmployeeDomainsFromUUID, getIUIDFromUUID } from "database:functions";
 import type { Employee } from "database:types";
 
 // GET SESSION TOKEN FROM COOKIES
@@ -23,34 +25,36 @@ const user = (await supabase.auth.getUser()).data.user as User;
 const sessionCookieFormatted = session?.access_token.match(/.{1,80}/g)?.join("\n") ?? "error.";
 
 const employee: Employee = await employeeFromUUID("8fd3fad7-da57-457b-bce3-c94349a5094f", user.id);
+
+const domainList = await getEmployeeDomainsFromUUID("8fd3fad7-da57-457b-bce3-c94349a5094f", user.id);
+
+const debug = false;
 ---
 
 <Layout title="dashboard" animated={true}>
     <main>
-        <div class:list={["border border-yellow-400 border-solid w-full flex flex-row"]}>
-            <section id="sidebar" class:list={["mx-auto border border-primary border-solid w-32"]}></section>
+        <div class:list={["w-full flex flex-row mt-4", debug && "border border-yellow-400 border-solid"]}>
+            <section id="sidebar" class:list={["mx-auto w-32", debug && "border border-primary border-solid"]}></section>
+
             <section id="domain-panel" class:list={["mx-auto w-7/12"]}>
-                <h1 class="text-4xl">Welcome, {employee.name + ", " + employee.education.name}</h1>
+                <div class="flex flex-row justify-between">
+                    <h1 class="text-4xl">Welcome, {employee.name + ", " + employee.education.name}</h1>
+                    <form class="flex items-center" action="/api/auth/signout">
+                        <button class="btn border border-solid border-slate-200" type="submit">Sign out</button>
+                    </form>
+                </div>
                 <h2 class="mb-0">Your Domains</h2>
                 <div class="divider my-1"></div>
                 <div hx-trigger="load" hx-get="../api/v1_0/domain/views/cards" id="domains" hx-vals=`{ "token": "${user.id}", "iuid": "8fd3fad7-da57-457b-bce3-c94349a5094f" }` class:list={["flex flex-row flex-wrap justify-normal"]}></div>
             </section>
-            <section id="announcements-panel" class:list={["mx-auto border border-primary border-solid w-32"]}></section>
+
+            <section id="announcements-panel" class:list={["mx-auto w-32", debug && "border border-primary border-solid"]}></section>
         </div>
     </main>
-
-    <p>We are happy to see you here.</p>
-    <h3 style="margin-bottom: 2px;">SessionID Cookie:</h3>
-    <Prism code={sessionCookieFormatted} />
-    <h3>User Claims</h3>
-    <Prism code={`${JSON.stringify(user.user_metadata)}`} />
-    <form action="/api/auth/signout">
-        <button type="submit">Sign out</button>
-    </form>
 
     <div id="fillable"></div>
 
     <br />
 
-    <LocationTag borderColor="#FFFF00" tagColor="#e7689c">SnowFlake</LocationTag>
+    <!-- <LocationTag borderColor="#FFFF00" tagColor="#e7689c">SnowFlake</LocationTag> -->
 </Layout>

@@ -1,0 +1,21 @@
+---
+import type { User } from "@supabase/supabase-js";
+import supabase from "database:client";
+import { employeeFromUUID, getEmployeeDomainsFromUUID } from "database:functions";
+import type { Employee } from "database:types";
+import DomainDisplayPanel from "./DomainDisplayPanel.astro";
+
+const user = (await supabase.auth.getUser()).data.user as User;
+
+// const employee: Employee = await employeeFromUUID("8fd3fad7-da57-457b-bce3-c94349a5094f", user.id);
+
+const domainList = await getEmployeeDomainsFromUUID("8fd3fad7-da57-457b-bce3-c94349a5094f", user.id);
+---
+
+<div class:list={["flex flex-row flex-wrap justify-normal"]}>
+    {
+        domainList.domains.map(domain => {
+            return <DomainDisplayPanel name={domain.name} description={domain.description} domainId={domain.id} />;
+        })
+    }
+</div>
